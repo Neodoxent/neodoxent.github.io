@@ -1,2 +1,7 @@
 # neodoxent.github.io
-Personal website and landing page for writing, research, and conceptual systems work. Hosts a public-facing overview and links to related projects and publications.
+
+This repository hosts my personal website and landing page.
+
+It serves as a public-facing overview of my work, including writing, research, and conceptual systems development, and provides links to related projects and publications.
+
+The content here is intentionally minimal and will evolve over time.

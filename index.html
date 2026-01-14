@@ -3,25 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neodoxent</title>
 
+  <title>Neodoxent</title>
   <meta name="description" content="Independent writing, integrative research, and conceptual systems design focused on sense-making and the articulation of complex human experience." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;600&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --accent: #6A8F8A;
+    }
+    
     body {
       margin: 0;
       padding: 4rem 1.5rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+      font-family: "Source Serif 4", serif; /* -apple-system, BlinkMacSystemFont, "Segoe UI",
                    Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue",
-                   Arial, sans-serif;
-      background-color: #ffffff;
-      color: #111111;
-      line-height: 1.6;
+                   Arial, sans-serif; */
+      background-color: #0F1214; /* old: #FFFFFF */
+      color: #E2E4E5; /* old: #111111, E6E6E6 */
+      line-height: 1.7; /* old: 1.6 */
     }
 
     .container {
-      max-width: 720px;
+      max-width: 680px; /* old: 720px */
       margin: 0 auto;
+    }
+
+    h1, h2 {
+      font-family: "Inter", sans-serif;
     }
 
     h1 {
@@ -33,9 +45,10 @@
     h2 {
       font-size: 1rem;
       font-weight: 400;
-      color: #555555;
+      color: #9AA0A6; /* old: #555555 */
       margin-top: 0;
       margin-bottom: 2rem;
+      letter-spacing: 0.02em; /* New */
     }
 
     p {
@@ -51,6 +64,21 @@
       margin-bottom: 0.5rem;
     }
 
+    .mark {
+      font-family: "Inter", sans-serif;
+      color: var(--accent);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+    }
+    
+    .divider {
+      border: none;
+      height: 1px;
+      background-color: #1E2326;
+      margin: 2rem 0;
+    }
+
     .links {
       margin-top: 2.5rem;
     }
@@ -59,24 +87,32 @@
       display: block;
       margin-bottom: 0.5rem;
       text-decoration: none;
-      color: #111111;
+      color: #E6E6E6; /* old: #111111 */
     }
 
     .links a:hover {
-      text-decoration: underline;
+      color: var(--accent);
+      text-decoration: none; /* old: underline */
     }
   </style>
 </head>
 
+
+
 <body>
   <div class="container">
+    <div class="mark">✦</div>
+    
     <h1>Neodoxent</h1>
     <h2>Independent Writer &amp; Conceptual Systems Designer</h2>
 
+    <hr class="divider">
+   
     <p>
       I work on the articulation and organization of complex human experience.
+      Especially in situations where emotions, meaning, and cognition become difficult to describe.
       My practice focuses on translating emotional, psychological, symbolic,
-      and cognitive phenomena into clear language and coherent frameworks.
+      and cognitive phenomena into precise language and coherent frameworks.
     </p>
 
     <p>
@@ -87,7 +123,8 @@
     </p>
 
     <p>
-      This practice is independent and exploratory in nature. Rather than
+      This practice is independent and exploratory in nature, emphasizing
+      understanding over prescription and clarity over certainty. Rather than
       advocating fixed conclusions or ideologies, I focus on careful
       articulation, structural clarity, and ethical grounding.
     </p>
@@ -99,6 +136,11 @@
       <li>Integrative research across psychology, philosophy, narrative, and systems theory</li>
       <li>Prototyping language and models for ambiguity and transformation</li>
     </ul>
+
+    <p>
+      This work is for people navigating complexity—personally, intellectually,
+      or creatively—who want clarity without oversimplification.
+    </p>
 
     <div class="links">
       <a href="https://github.com/neodoxent" target="_blank" rel="noopener noreferrer">

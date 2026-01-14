@@ -1,7 +1,22 @@
 # neodoxent.github.io
 
-This repository hosts my personal website and landing page.
+<!-- Orientation precedes explanation -->
 
-It serves as a public-facing overview of my work, including writing, research, and conceptual systems development, and provides links to related projects and publications.
+This repository hosts the public landing page for Neodoxent.
 
-The content here is intentionally minimal and will evolve over time.
+It functions as a stable point of orientation: a concise articulation of my practice in writing, integrative research, and conceptual systems design, with links to work hosted elsewhere.
+
+The site is intentionally minimal by design.  
+Changes are made sparingly, and only when the underlying structure meaningfully shifts.
+
+This repository prioritizes clarity and longevity over iteration speed.
+
+```markdown
+
+```
+
+This repository is intentionally quiet.
+
+—
+
+•

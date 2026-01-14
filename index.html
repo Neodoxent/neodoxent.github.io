@@ -12,6 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;600&display=swap" rel="stylesheet">
 
   <style>
+    
+    /* CSS v1.0 */
+    
     :root {
       --accent: #6A8F8A;
     }
@@ -90,6 +93,10 @@
       margin: 1.75rem 0; /* old: 2rem 0 */
     }
 
+    .divider[title] {
+      cursor: help;
+    }
+
     /* .divider.secondary {
       opacity: 0.6;
     } */
@@ -124,19 +131,26 @@
       margin-bottom: 0.75rem;
     }
 
+    .colophon .closing {
+      font-style: italic;
+    }
+    .dash {
+      cursor: help;
+    }
   </style>
 </head>
 
-
-
+<!-- Landing v1.0 - Initial Public Articulation | Stable baseline -->
+  
 <body>
   <div class="container">
-    <div class="mark" title="Polaris">✦</div>
+    <div class="mark" title="Polaris" data-orientation="north" aria-label="Polaris">✦</div>
     
     <h1>Neodoxent</h1>
     <h2>Independent Writer &amp; Conceptual Systems Designer</h2>
 
-    <hr class="divider">
+    <hr class="divider" title="α–β Ursae Majoris (Merak-Dubhe)" data-vector="north" aria-label="Merak-Dubhe">
+
 
     <h3>Practice</h3>
     <p>
@@ -188,13 +202,15 @@
         Contact
       </a>
     </div>
+   <!-- Orientation precedes explanation -->
    <div class="colophon">
      <p>
       This work is ongoing.<br>
       Clarity is iterative.<br>
-      —
+      <span class="dash" title="pause" aria-label="pause">—</span>
+
      </p>
-     <p>Here ends the articulation.</p>
+     <p class="closing">Here ends the articulation.</p>
      <p>
        Set in Inter and Source Serif.<br>
        Designed for clarity and longevity.
@@ -203,6 +219,8 @@
        Updated: 2026.
      </p>
    </div>
+   <!-- Systems are felt before they are named -->
   </div>
+  <!-- South: embodiment, context, return -->
 </body>
 </html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Threshold</title>
+
+  <!-- Threshold v0.1 — structural scaffold -->
+  
+  <style>
+    /* No aesthetics yet. Structure only. */
+
+    body {
+      margin: 0;
+      padding: 3rem 1.5rem;
+      font-family: system-ui, sans-serif;
+      background: #0F1214;
+      color: #E2E4E5;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .orientation {
+      opacity: 0.85;
+    }
+
+    .warnings-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .warning {
+      border-left: 3px solid #6A8F8A;
+      padding: 1rem 1.25rem;
+    }
+
+    .warning h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .warning p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .critical {
+      border-left-color: #C2A15A;
+    }
+
+    .threshold-state {
+      opacity: 0.6;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <section class="orientation">
+      <p>
+        This page establishes conditions of engagement.
+        Proceeding constitutes acknowledgment.
+      </p>
+    </section>
+
+    <section class="warnings-stack">
+
+      <section class="warning critical" data-lock="authorial">
+        <h4>Authorial Responsibility</h4>
+        <p>
+          Reading alone is insufficient. You are expected to justify,
+          extend, or refuse this warning explicitly.
+        </p>
+      </section>
+
+      <!-- Additional warnings will be stacked here -->
+
+    </section>
+
+    <section class="threshold-state">
+      <p>
+        Status: Undefined.
+      </p>
+    </section>
+
+  </div>
+</body>
+</html>

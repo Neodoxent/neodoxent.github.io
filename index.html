@@ -51,17 +51,28 @@
       letter-spacing: 0.02em; /* New */
     }
 
+    h3 {
+      font-family: "Inter", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7E8489;
+      margin: 3rem 0 1rem;
+}
+
     p {
       margin-bottom: 1.25rem;
     }
 
     ul {
-      margin: 1.25rem 0;
-      padding-left: 1.25rem;
+      margin: 1.75rem 0; /* old: 1.25rem */
+      padding-left: 1.1rem; /* old: 1.25rem */
     }
 
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem; /* old: 0.5rem */
+      line-height: 1.6; /* New */
     }
 
     .mark {
@@ -76,11 +87,15 @@
       border: none;
       height: 1px;
       background-color: #1E2326;
-      margin: 2rem 0;
+      margin: 1.75rem 0; /* old: 2rem 0 */
     }
 
+    /* .divider.secondary {
+      opacity: 0.6;
+    } */
+
     .links {
-      margin-top: 2.5rem;
+      margin-top: 2rem; /* old: 2.5rem */
     }
 
     .links a {
@@ -94,6 +109,21 @@
       color: var(--accent);
       text-decoration: none; /* old: underline */
     }
+
+    .colophon {
+      border-top: 1px solid #1A1F22;
+      padding-top: 1.5rem;
+      margin-top: 3rem;
+      font-family: "Inter", sans-serif;
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: #7E8489;
+    }
+
+    .colophon p {
+      margin-bottom: 0.75rem;
+    }
+
   </style>
 </head>
 
@@ -101,13 +131,14 @@
 
 <body>
   <div class="container">
-    <div class="mark">✦</div>
+    <div class="mark" title="Polaris">✦</div>
     
     <h1>Neodoxent</h1>
     <h2>Independent Writer &amp; Conceptual Systems Designer</h2>
 
     <hr class="divider">
-   
+
+    <h3>Practice</h3>
     <p>
       I work on the articulation and organization of complex human experience.
       Especially in situations where emotions, meaning, and cognition become difficult to describe.
@@ -129,6 +160,7 @@
       articulation, structural clarity, and ethical grounding.
     </p>
 
+    <h3>Focus</h3> 
     <p>Areas of work include:</p>
     <ul>
       <li>Conceptual frameworks for meaning, cognition, and emotional structure</li>
@@ -142,6 +174,9 @@
       or creatively—who want clarity without oversimplification.
     </p>
 
+    <hr class="divider">
+
+    <h3>Elsewhere</h3>
     <div class="links">
       <a href="https://github.com/neodoxent" target="_blank" rel="noopener noreferrer">
         GitHub — frameworks, notes, and working drafts
@@ -153,6 +188,21 @@
         Contact
       </a>
     </div>
+   <div class="colophon">
+     <p>
+      This work is ongoing.<br>
+      Clarity is iterative.<br>
+      —
+     </p>
+     <p>Here ends the articulation.</p>
+     <p>
+       Set in Inter and Source Serif.<br>
+       Designed for clarity and longevity.
+     </p>
+     <p>
+       Updated: 2026.
+     </p>
+   </div>
   </div>
 </body>
 </html>

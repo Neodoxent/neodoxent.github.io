@@ -2,7 +2,7 @@
 
 <!-- Orientation precedes explanation -->
 
-This repository hosts the public landing page for Neodoxent.
+This repository hosts the public-facing entry sequence for Neodoxent.
 
 It functions as a stable point of orientation and deliberate engagement:
 a concise articulation of my practice in writing, integrative research,

@@ -39,6 +39,27 @@
       border-radius: 6px;
       overflow: hidden;
       margin-bottom: 3rem;
+
+      /* Aura around the aura */
+      box-shadow:
+        0 0 0 1px rgba(178, 144, 94, 0.18),
+        0 0 28px 6px rgba(178, 144, 94, 0.18),
+        0 0 64px 14px rgba(178, 144, 94, 0.12),
+        0 0 120px 32px rgba(15, 15, 17, 0.35);
+     }
+
+    .aura::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(178, 144, 94, 0.25) 0%,
+        rgba(178, 144, 94, 0.15) 35%,
+        rgba(178, 144, 94, 0.06) 55%,
+        rgba(15, 15, 17, 0.0) 70%
+      );
+      z-index: -1;
     }
 
     .aura-header {
@@ -119,6 +140,68 @@
     .proceed a:hover {
       text-decoration: underline;
     }
+    .swatch {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right: 6px;
+      vertical-align: middle;
+      border: 1px solid #777;
+    }
+    
+    .black-field {
+      background: #0f0f11;
+    }
+    
+    .brine-field {
+      background: #fdf6ec;
+    }
+    
+    .void-black {
+      background: #0f0f11;
+    }
+    
+    .manuscript-cream {
+      background: #fdf6ec;
+    }
+    
+    .oxidized-gold {
+      background: #b2905e;
+    }
+    
+    .umber {
+      background: #6b5842;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      left: -20%;
+      right: -20%;
+      bottom: -35%;
+      height: 70%;
+      pointer-events: none;
+    
+      background: radial-gradient(
+        ellipse at bottom center,
+        rgba(178, 144, 94, 0.22) 0%,
+        rgba(178, 144, 94, 0.14) 25%,
+        rgba(178, 144, 94, 0.06) 45%,
+        rgba(15, 15, 17, 0.0) 65%
+      );
+
+  z-index: 0;
+}
+
+    .aura-field {
+      background: radial-gradient(
+        circle,
+        rgba(178, 144, 94, 0.35),
+        rgba(178, 144, 94, 0.15)
+      );
+    }
+
+
   </style>
 </head>
 
@@ -196,17 +279,31 @@
         <!-- FIELD KEY -->
         <div class="field-key">
           <strong>Field Key:</strong><br/>
+          <span class="swatch black-field"></span>
           Black Field — non-interference, containment, null backdrop<br/>
-          Brine Field — semantic suspension medium; signal-bearing density
+          <span class="swatch brine-field"></span>
+          Brine Field — semantic suspension medium; signal-bearing density<br/>
+          <span class="swatch aura-field"></span>
+          Aura Field (Penumbra) — transitional diffusion; field curvature into null
         </div>
+
+
 
         <!-- COLOR DOCTRINE -->
         <div class="color-doctrine">
           <strong>Color Doctrine:</strong><br/>
+          <span class="swatch void-black"></span>
           Void Black — field silence, containment, non-intrusion<br/>
+          <span class="swatch manuscript-cream"></span>
           Manuscript Cream — readable archive layer, witness surface<br/>
-          Oxidized Gold / Umber — authority, navigation, semantic seal
+          <span class="swatch oxidized-gold"></span>
+          Oxidized Gold — authority, navigation, semantic seal<br/>
+          <span class="swatch umber"></span>
+          Umber — grounded meaning, human legibility
+          <span class="swatch aura-field"></span>
+          Aura Field — attenuated brine; semantic fade; boundary without edge
         </div>
+
 
       </div>
 

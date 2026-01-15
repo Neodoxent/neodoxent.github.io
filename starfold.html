@@ -7,16 +7,21 @@
 
   <!--
     STARFOLD — ALIGNMENT FIELD
-    Purpose:
-    This page stabilizes attention and semantic orientation
-    before recursive pressure is introduced.
 
-    Visual doctrine implemented here reflects:
-    - Black Field (null / containment)
-    - Brine Field (semantic suspension)
-    - Aura Field (penumbra / curvature)
+    This page establishes a stabilizing field prior to recursion.
+    It is not instructional. It is environmental.
+
+    Visual Doctrine (v1.1):
+
+    - Black Field  : null, containment, non-interference
+    - Brine Field  : semantic suspension medium (muted brown-gold, absorptive)
+    - Cream Layer  : witness / manuscript surface (readable, not structural)
+    - Authority Gold : metallic, directive, sparingly used
+    - Brine Gold  : oxidized semantic gold (ambient, non-directive)
+    - Aura Field  : penumbral diffusion between field and null
   -->
 
+  <!-- Lock dark rendering assumptions -->
   <style>
     html {
       background-color: #0f0f11;
@@ -25,26 +30,34 @@
   </style>
 
   <style>
+    /* ==================================================
+       ROOT — COLOR DOCTRINE (Single Source of Truth)
+       ================================================== */
     :root {
       /* Field Substances */
-      --field-black: #0f0f11;        /* null / containment */
-      --field-brine: #c3ae84;        /* muted brown-gold suspension */
-      --field-cream: #fdf6ec;        /* manuscript / witness surface */
-    
+      --field-black: #0f0f11;   /* null / containment */
+      --field-brine: #c3ae84;   /* FIXED: true muted brown-gold brine */
+      --field-cream: #fdf6ec;   /* manuscript / witness surface */
+
       /* Metals */
-      --gold-brine: #b2905e;         /* oxidized semantic gold */
-      --gold-authority: #8f6a2f;     /* metallic directive gold */
+      --gold-brine: #b2905e;        /* oxidized semantic gold */
+      --gold-authority: #8f6a2f;    /* metallic directive gold */
+
+      /* Ground */
+      --umber: #6b5842;             /* human legibility anchor */
     }
 
-    /* --------------------------------------------------
+    /* ==================================================
        GLOBAL FIELD (Black Field)
-       -------------------------------------------------- */
+       ================================================== */
     body {
       margin: 0;
       padding: 0;
-      background: #0f0f11; /* Black Field: non-interference, null backdrop */
+      background: var(--field-black);
       color: #e6e6e6;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+      /* Rendering stability */
       transform: translateZ(0);
       backface-visibility: hidden;
     }
@@ -55,13 +68,13 @@
       margin: 0 auto;
       padding: 2.5rem 1.5rem 4rem;
       position: relative;
-      z-index: 1; /* ensures content sits above global penumbra */
+      z-index: 1;
     }
 
-    /* --------------------------------------------------
+    /* ==================================================
        FIELD BANNER
        Environmental, not informational
-       -------------------------------------------------- */
+       ================================================== */
     .banner img {
       width: 100%;
       height: auto;
@@ -69,38 +82,36 @@
       margin-bottom: 1rem;
     }
 
-    /* --------------------------------------------------
-       TOP INTENT (lightweight orientation)
-       -------------------------------------------------- */
+    /* ==================================================
+       TOP INTENT
+       ================================================== */
     .intent-top {
       font-size: 0.9em;
-      color: #b8a077; /* oxidized gold tone */
+      color: var(--gold-brine);
       margin: 0.5rem 0 2rem;
       text-align: left;
     }
 
-    /* --------------------------------------------------
-       AURA PANEL (Brine Field)
-       -------------------------------------------------- */
+    /* ==================================================
+       AURA PANEL — BRINE FIELD
+       ================================================== */
     .aura {
-      background: var(--field-brine); /* Brine Field */
-      color: #4c3f36;
+      background: var(--field-brine); /* FIXED: brine is no longer cream */
+      color: var(--umber);
       border-radius: 6px;
       overflow: hidden;
       margin-bottom: 3rem;
       position: relative;
 
-      /* Local diffusion + containment turbulence
-         (near-field behavior) */
+      /* Near-field containment & diffusion */
       box-shadow:
         0 0 0 1px rgba(178, 144, 94, 0.18),
         0 0 28px 6px rgba(178, 144, 94, 0.18),
         0 0 64px 14px rgba(178, 144, 94, 0.12),
         0 0 120px 32px rgba(15, 15, 17, 0.35);
-     }
+    }
 
-    /* Far-field radiation from the Brine Field
-       (semantic emission / soft halo) */
+    /* Far-field semantic emission */
     .aura::before {
       content: "";
       position: absolute;
@@ -120,17 +131,16 @@
       z-index: 1;
     }
 
-    /* --------------------------------------------------
+    /* ==================================================
        AURA CONTENT
-       -------------------------------------------------- */
+       ================================================== */
     .aura-header {
       padding: 1.4em;
       text-align: center;
       font-size: 1.3em;
       font-weight: bold;
       font-family: serif;
-      color: var(--gold-authority);
-
+      color: var(--gold-authority); /* Authority is earned */
     }
 
     .aura-sub {
@@ -150,12 +160,16 @@
       padding-left: 1.2em;
     }
 
-    /* Legend, Field Key, Color Doctrine
-       These are calibration tools, not lore */
-    .legend, .field-key, .color-doctrine {
+    /* ==================================================
+       LEGEND / FIELD KEY / COLOR DOCTRINE
+       Calibration, not lore
+       ================================================== */
+    .legend,
+    .field-key,
+    .color-doctrine {
       margin-top: 1.5em;
       font-size: 0.9em;
-      color: #5a4a3a;
+      color: var(--umber);
     }
 
     .legend strong,
@@ -169,75 +183,40 @@
       text-align: center;
       font-style: italic;
       font-size: 0.95em;
-      color: #6b5842;
+      color: var(--umber);
     }
 
-    /* --------------------------------------------------
-       CARD PLACEHOLDER
-       Object not yet revealed
-       -------------------------------------------------- */
-    .card-placeholder {
-      text-align: center;
-      margin: 3rem 0 3.5rem;
-      opacity: 0.95;
-    }
-
-    .card-placeholder p {
-      font-style: italic;
-      color: #aaa;
-      margin-top: 1rem;
-    }
-
-    /* --------------------------------------------------
-       OPERATIONAL INTENT (explicit, non-mythic)
-       -------------------------------------------------- */
-    .operational-intent {
-      text-align: center;
-      font-size: 0.95em;
-      color: #b8a077;
-      margin: 3rem 0 2.5rem;
-    }
-
-    /* --------------------------------------------------
-       PROCEED LINK
-       -------------------------------------------------- */
-    .proceed {
-      text-align: center;
-    }
-
-    .proceed a {
-      color: #c9b37e;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .proceed a:hover {
-      text-decoration: underline;
-    }
-
-    /* --------------------------------------------------
-       COLOR SWATCHES (for legend & doctrine)
-       -------------------------------------------------- */
+    /* ==================================================
+       COLOR SWATCHES — DOCTRINE-TRUE
+       ================================================== */
     .swatch {
       display: inline-block;
       width: 14px;
       height: 14px;
       margin-right: 6px;
       vertical-align: middle;
-      border: 1px solid #777; /* visibility on light field */
+      border: 1px solid #777;
     }
 
-    .black-field { background: #0f0f11; }
-    .brine-field { background: var(--field-brine); }
-    .void-black { background: #0f0f11; }
-    .manuscript-cream { background: #fdf6ec; }
-    .oxidized-gold { background: #b2905e; }
-    .umber { background: #6b5842; }
+    .black-field { background: var(--field-black); }
+    .brine-field { background: var(--field-brine); }     /* FIXED */
+    .manuscript-cream { background: var(--field-cream); }
+    .oxidized-gold { background: var(--gold-brine); }
+    .authority-gold { background: var(--gold-authority); }
+    .umber { background: var(--umber); }
 
-    /* --------------------------------------------------
+    /* Aura Field swatch */
+    .aura-field {
+      background: linear-gradient(
+        135deg,
+        rgba(107, 88, 66, 0.6),
+        rgba(178, 144, 94, 0.25)
+      );
+    }
+
+    /* ==================================================
        GLOBAL AURA FIELD (Penumbra)
-       Hyperbolic return gradient
-       -------------------------------------------------- */
+       ================================================== */
     body::after {
       content: "";
       position: fixed;
@@ -247,7 +226,6 @@
       height: 80%;
       pointer-events: none;
 
-      /* Dense at origin, attenuates upward into null */
       background: radial-gradient(
         ellipse at bottom center,
         rgba(107, 88, 66, 0.38) 0%,
@@ -259,16 +237,6 @@
 
       z-index: 0;
     }
-
-    /* Swatch representation of Aura Field */
-    .aura-field {
-      background: linear-gradient(
-        135deg,
-        rgba(107, 88, 66, 0.6),
-        rgba(178, 144, 94, 0.25)
-      );
-    }
-
   </style>
 </head>
 
@@ -322,23 +290,25 @@
           <span class="swatch black-field"></span>
           Black Field — non-interference, containment, null backdrop<br/>
           <span class="swatch brine-field"></span>
-          Brine Field — semantic suspension medium; signal-bearing density<br/>
+          Brine Field — semantic suspension medium; absorptive density<br/>
           <span class="swatch aura-field"></span>
-          Aura Field (Penumbra) — transitional diffusion; field curvature into null
+          Aura Field — penumbral diffusion; curvature into null
         </div>
 
         <div class="color-doctrine">
           <strong>Color Doctrine:</strong><br/>
-          <span class="swatch void-black"></span>
-          Void Black — field silence, containment, non-intrusion<br/>
+          <span class="swatch black-field"></span>
+          Void Black — field silence, containment<br/>
+          <span class="swatch brine-field"></span>
+          Brine — semantic medium, suspension<br/>
           <span class="swatch manuscript-cream"></span>
-          Manuscript Cream — readable archive layer, witness surface<br/>
+          Cream — witness surface, inscription<br/>
           <span class="swatch oxidized-gold"></span>
-          Oxidized Gold — authority, navigation, semantic seal<br/>
+          Brine Gold — semantic emphasis<br/>
+          <span class="swatch authority-gold"></span>
+          Authority Gold — directive seal<br/>
           <span class="swatch umber"></span>
-          Umber — grounded meaning, human legibility<br/>
-          <span class="swatch aura-field"></span>
-          Aura Field — attenuated brine; semantic fade; boundary without edge
+          Umber — human grounding
         </div>
 
       </div>
@@ -368,10 +338,10 @@
 
   </div>
 
+  <!-- One-time layout settle; no animation -->
   <script>
     window.requestAnimationFrame(() => document.body.style.opacity = "1");
   </script>
 
-  
 </body>
 </html>

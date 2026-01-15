@@ -2,12 +2,25 @@
 <html lang="en">
 <head>
 
+  <!--
+    INDEX.HTML
+    Public landing surface.
+    This file establishes tone, scope, and orientation only.
+    It is intentionally non-recursive and non-escalatory.
+  -->
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Primary identity -->
   <title>Neodoxent</title>
+
+  <!-- Public-facing description: concise, non-mythic, durable -->
   <meta name="description" content="Independent writing, integrative research, and conceptual systems design focused on sense-making and the articulation of complex human experience." />
   
+  <!-- Typeface preconnects:
+       Inter = structural clarity
+       Source Serif = sustained reading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;600&display=swap" rel="stylesheet">
@@ -16,26 +29,32 @@
     
     /* */
     /* CSS Style v1.0 */
+    /* Stable baseline for public articulation */
     /* */
     
+    /* Root-level variables:
+       kept minimal to avoid aesthetic volatility */
     :root {
       --accent: #6A8F8A;
     }
     
+    /* Global canvas */
     body {
       margin: 0;
       padding: 4rem 1.5rem;
       font-family: "Source Serif 4", serif;
-      background-color: #0F1214;
+      background-color: #0F1214; /* dark neutral field */
       color: #E2E4E5;
       line-height: 1.7;
     }
 
+    /* Central readable column */
     .container {
       max-width: 680px;
       margin: 0 auto;
     }
 
+    /* Headings use Inter for contrast and clarity */
     h1, h2 {
       font-family: "Inter", sans-serif;
     }
@@ -55,6 +74,8 @@
       letter-spacing: 0.02em;
     }
 
+    /* Section headers:
+       intentionally small, spaced, and restrained */
     h3 {
       font-family: "Inter", sans-serif;
       font-size: 0.75rem;
@@ -79,6 +100,7 @@
       line-height: 1.6;
     }
 
+    /* Orientation mark (symbolic, not decorative) */
     .mark {
       font-family: "Inter", sans-serif;
       color: var(--accent);
@@ -87,6 +109,8 @@
       margin-bottom: 1.5rem;
     }
     
+    /* Section dividers:
+       quiet, informational, non-intrusive */
     .divider {
       border: none;
       height: 1px;
@@ -94,14 +118,17 @@
       margin: 1.75rem 0;
     }
 
+    /* Title-bearing dividers invite hover without demand */
     .divider[title] {
       cursor: help;
     }
 
+    /* Optional secondary divider (unused, retained intentionally) */
     /* .divider.secondary {
       opacity: 0.6;
     } */
 
+    /* External and internal links */
     .links {
       margin-top: 2rem;
     }
@@ -118,6 +145,8 @@
       text-decoration: none;
     }
 
+    /* Threshold entry:
+       the only forward-pressure element on the page */
     .threshold-link {
       margin: 2.5rem 0;
       text-align: left;
@@ -140,6 +169,8 @@
       color: #7F868C;
     }
 
+    /* Colophon:
+       marks closure without finality */
     .colophon {
       border-top: 1px solid #1A1F22;
       padding-top: 1.5rem;
@@ -157,6 +188,8 @@
     .colophon .closing {
       font-style: italic;
     }
+
+    /* Pause marker */
     .dash {
       cursor: help;
     }
@@ -169,13 +202,20 @@
   
 <body>
   <div class="container">
+
+    <!-- Orientation mark:
+         Polaris / North / reference point -->
     <div class="mark" title="Polaris" data-orientation="north" aria-label="Polaris">✦</div>
     
+    <!-- Primary identity -->
     <h1>Neodoxent</h1>
     <h2>Independent Writer &amp; Conceptual Systems Designer</h2>
 
+    <!-- Symbolic divider:
+         Merak–Dubhe vector (orientation, not instruction) -->
     <hr class="divider" title="α–β Ursae Majoris (Merak-Dubhe)" data-vector="north" aria-label="Merak-Dubhe">
 
+    <!-- Practice description -->
     <h3>Practice</h3>
     <p>
       I work on the articulation and organization of complex human experience.
@@ -198,6 +238,7 @@
       articulation, structural clarity, and ethical grounding.
     </p>
 
+    <!-- Focus areas -->
     <h3>Focus</h3> 
     <p>Areas of work include:</p>
     <ul>
@@ -212,6 +253,8 @@
       or creatively—who want clarity without oversimplification.
     </p>
 
+    <!-- Threshold invitation:
+         explicit, voluntary, unforced -->
     <p>For those who wish to proceed deliberately:</p>
     <p class="threshold-link">
       <a href="/threshold.html">Enter the threshold</a>
@@ -219,6 +262,7 @@
 
     <hr class="divider">
 
+    <!-- External presence -->
     <h3>Elsewhere</h3>
     <div class="links">
       <a href="https://github.com/neodoxent" target="_blank" rel="noopener noreferrer">
@@ -234,6 +278,8 @@
 
    <!-- Orientation precedes explanation -->
 
+   <!-- Colophon:
+        closure without sealing -->
    <div class="colophon">
      <p>
       This work is ongoing.<br>

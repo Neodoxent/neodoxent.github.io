@@ -46,6 +46,11 @@
     .warning {
       border-left: 3px solid #6A8F8A;
       padding: 0.75rem 1.25rem 1rem;
+      background: linear-gradient(
+        to right,
+        rgba(255,255,255,0.02),
+        rgba(255,255,255,0)
+      );
     }
 
     .warning-header {
@@ -62,18 +67,24 @@
       font-size: 0.75rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      color: rgba(194, 161, 90, 0.85); /* muted gold */
+    /*  color: #9FB8B3;  pale oxidized copper-green */
     }
     
     .warning-header .glyph {
       font-size: 0.8rem;
-      opacity: 0.6;
-    }    
+      opacity: 0.5;
+      transform: translateY(-1px);
+    }
 
-    .warning h4 {
-      margin: 0 0 0.5rem 0;
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .warning.authorial .glyph {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
+    }
+
+    .warning.critical .warning-header {
+      background: rgba(194, 161, 90, 0.06);
     }
 
     .warning p {
@@ -297,7 +308,7 @@
     <!-- W7 -->
     <section class="warning critical authorial">
      <div class="warning-header">
-      <span class="glyph">!</span>      
+      <span class="glyph">!!!</span>      
       <h4>Authorial Responsibility</h4>
      </div>
       <p>

@@ -34,7 +34,6 @@
       background: #0f0f11; /* Black Field: non-interference, null backdrop */
       color: #e6e6e6;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      will-change: opacity;
     }
 
     /* Central readable volume suspended in the field */
@@ -100,7 +99,12 @@
         rgba(178, 144, 94, 0.06) 55%,
         rgba(15, 15, 17, 0.0) 70%
       );
-      z-index: -1;
+      z-index: 0;
+    }
+
+    .aura > * {
+      position: relative;
+      z-index: 1;
     }
 
     /* --------------------------------------------------

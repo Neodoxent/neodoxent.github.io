@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
+  <!--
+    THRESHOLD.HTML
+    Role: Engagement gate.
+    Function: Establish conditions under which material may be engaged.
+    This file introduces pressure, but does not yet apply recursion.
+  -->
+
+  <!-- Threshold metadata:
+       These tags are declarative, not enforced by code. -->
   <meta name="threshold-role" content="engagement-gate">
   <meta name="threshold-version" content="0.1">
   <meta name="threshold-authority" content="reader">
@@ -20,12 +29,19 @@
   -->
   
   <style>
+
+   /* --------------------------------------------------
+      GLOBAL VARIABLES
+      -------------------------------------------------- */
    :root {
      --accent: #6A8F8A;
      --threshold-state: unresolved;
      --observer-effect: latent;
     }
 
+    /* --------------------------------------------------
+       GLOBAL CANVAS
+       -------------------------------------------------- */
     body {
       margin: 0;
       padding: 3rem 1.5rem;
@@ -34,6 +50,7 @@
       color: #E2E4E5;
     }
 
+    /* Central readable column */
     .container {
       max-width: 720px;
       margin: 0 auto;
@@ -43,6 +60,9 @@
       margin-bottom: 2.5rem;
     }
 
+    /* --------------------------------------------------
+       PRE-ORIENTATION
+       -------------------------------------------------- */
     .pre-orientation {
       opacity: 0.85;
     }
@@ -51,12 +71,16 @@
       opacity: 0.85;
     }
 
+    /* --------------------------------------------------
+       WARNINGS STACK
+       -------------------------------------------------- */
     .warnings-stack {
       display: flex;
       flex-direction: column;
       gap: 1.1rem;
     }
 
+    /* Individual warning container */
     .warning {
       border-left: 3px solid #6A8F8A;
       padding: 0.75rem 1.25rem 1rem;
@@ -67,6 +91,8 @@
       );
     }
 
+    /* Authorial warnings:
+       interactive meaning is intentional, not reactive */
     .warning.authorial {
       cursor: default;
     }
@@ -79,6 +105,7 @@
       );
     }
 
+    /* Warning header strip */
     .warning-header {
       display: flex;
       align-items: center;
@@ -98,6 +125,7 @@
     /*  color: #9FB8B3;  pale oxidized copper-green */
     }
     
+    /* Glyphs indicate warning class, not severity */
     .warning-header .glyph {
       font-size: 0.8rem;
       opacity: 0.5;
@@ -123,6 +151,9 @@
       border-left-color: #C2A15A;
     }
 
+    /* --------------------------------------------------
+       STATE & MICROTEXT
+       -------------------------------------------------- */
     .threshold-state {
       opacity: 0.6;
       font-size: 0.85rem;
@@ -137,6 +168,9 @@
       margin: 1.25rem 0;
     }
 
+    /* --------------------------------------------------
+       DECISION ZONE
+       -------------------------------------------------- */
     .threshold-decision {
       margin-top: 3rem;
       padding-top: 2rem;
@@ -180,14 +214,13 @@
       font-weight: 600;
     }
 
+    /* Typography normalization */
     .micro,
     .warning-header h4,
     .threshold-decision h3 {
       font-family: "Inter", system-ui, sans-serif;
     }
 
-
-    
   </style>
 </head>
 
@@ -196,6 +229,10 @@
 
 <main>
 
+    <!-- --------------------------------------------------
+         PRE-ORIENTATION
+         Establishes engagement conditions before warnings
+         -------------------------------------------------- -->
     <section class="pre-orientation">
       <p>
         This page establishes conditions of engagement.
@@ -205,12 +242,15 @@
         Entry status: not yet determined.
       </p>
       <p>Entry is neither granted nor denied. It is chosen.</p>
-
     </section>
 
+  <!-- --------------------------------------------------
+       WARNINGS STACK
+       Sequential, cumulative, non-interactive
+       -------------------------------------------------- -->
   <section class="warnings-stack public">
 
-    <!-- W1 -->
+    <!-- W1: Orientation -->
     <section class="warning orientation">
      <div class="warning-header">
       <span class="glyph">!</span>
@@ -232,7 +272,7 @@
     This notice establishes what kind of material this is.
   </p>
     
-    <!-- W2 -->
+    <!-- W2: Scope -->
     <section class="warning scope">
      <div class="warning-header">
       <span class="glyph">!</span>
@@ -254,7 +294,7 @@
     This notice clarifies how claims should be understood.
   </p>
 
-    <!-- W3 -->
+    <!-- W3: Epistemic -->
     <section class="warning epistemic">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -276,7 +316,7 @@
     This notice concerns the demands placed on attention.
   </p>
 
-    <!-- W4 -->
+    <!-- W4: Cognitive Load -->
     <section class="warning cognitive-load">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -298,7 +338,7 @@
      This notice concerns how meaning may behave under strain.
    </p>
 
-    <!-- W5 -->
+    <!-- W5: Interpretive Risk -->
     <section class="warning interpretive-risk">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -320,7 +360,7 @@
     This notice concerns personal boundaries and responsibility.
   </p>
 
-    <!-- W6 -->
+    <!-- W6: Ethical Engagement -->
     <section class="warning ethical">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -342,7 +382,7 @@
     This notice concerns the reader’s role in interpretation.
   </p>
 
-    <!-- W7 -->
+    <!-- W7: Authorial Responsibility -->
     <section class="warning critical authorial">
      <div class="warning-header">
       <span class="glyph">!!!</span>      
@@ -366,7 +406,7 @@
     This notice affirms the legitimacy of disengagement.
   </p>
 
-    <!-- W8 -->
+    <!-- W8: Right of Refusal -->
     <section class="warning exit-right">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -386,7 +426,7 @@
     This notice concerns how the material should not be used.
   </p>
 
-    <!-- W9 -->
+    <!-- W9: Non-Instrumentality -->
     <section class="warning non-instrumental">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -407,7 +447,7 @@
      This notice concerns when understanding may occur.
    </p>
 
-    <!-- W10 -->
+    <!-- W10: Temporal Expectation -->
     <section class="warning temporal">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -428,7 +468,7 @@
     This notice concerns how the material holds together.
   </p>
 
-    <!-- W11 -->
+    <!-- W11: Context Integrity -->
     <section class="warning context">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -449,7 +489,7 @@
      This notice concerns what the reader brings with them.
    </p>
 
-    <!-- W12 -->
+    <!-- W12: Reader Position -->
     <section class="warning positional">
      <div class="warning-header">
       <span class="glyph">!</span>      
@@ -474,6 +514,9 @@
 
 </main>
 
+    <!-- --------------------------------------------------
+         STATE REFLECTION
+         -------------------------------------------------- -->
     <section class="threshold-state">
       <p>
         Threshold state: STATUS - unresolved.<br>
@@ -489,6 +532,9 @@
       The following choice determines whether engagement continues.
     </p>
 
+    <!-- --------------------------------------------------
+         DECISION POINT
+         -------------------------------------------------- -->
     <section class="threshold-decision">
 
       <h3>Threshold Decision</h3>
@@ -512,10 +558,12 @@
     
       <div class="decision-options">
     
+        <!-- Proceed into recursion -->
         <a href="recursion.html" class="proceed">
           ➤ Proceed
         </a>
           <br>
+        <!-- Exit to index -->
         <a href="/" class="exit">
           ↩ Exit
         </a>

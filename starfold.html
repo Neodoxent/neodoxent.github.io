@@ -20,6 +20,7 @@
   <style>
     html {
       background-color: #0f0f11;
+      color-scheme: dark;
     }
   </style>
 
@@ -34,6 +35,7 @@
       background: #0f0f11; /* Black Field: non-interference, null backdrop */
       color: #e6e6e6;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transform: translateZ(0);
     }
 
     /* Central readable volume suspended in the field */
@@ -355,7 +357,7 @@
   </div>
 
   <script>
-    window.requestAnimationFrame(() => document.body.style.opacity = "0.999");
+    window.requestAnimationFrame(() => document.body.style.opacity = "1");
   </script>
 
   

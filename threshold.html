@@ -26,7 +26,7 @@
     }
 
     section {
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
 
     .pre-orientation {
@@ -40,13 +40,34 @@
     .warnings-stack {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.1rem;
     }
 
     .warning {
       border-left: 3px solid #6A8F8A;
-      padding: 1rem 1.25rem;
+      padding: 0.75rem 1.25rem 1rem;
     }
+
+    .warning-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.4rem 0.6rem;
+      margin: -0.75rem -1.25rem 0.75rem;
+    }
+    
+    .warning-header h4 {
+      margin: 0;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    
+    .warning-header .glyph {
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }    
 
     .warning h4 {
       margin: 0 0 0.5rem 0;
@@ -115,6 +136,11 @@
     .decision-options a:hover {
       color: var(--accent);
     }
+
+    .emphasis {
+      font-weight: 600;
+    }
+
     
   </style>
 </head>
@@ -129,13 +155,19 @@
         This page establishes conditions of engagement.
         Proceeding constitutes acknowledgment.
       </p>
+      <p class="threshold-state">
+        Entry status: not yet determined.
+      </p>
     </section>
 
   <section class="warnings-stack public">
 
     <!-- W1 -->
     <section class="warning orientation">
+     <div class="warning-header">
+      <span class="glyph">!</span>
       <h4>Orientation Notice</h4>
+     </div>
       <p>
         This page functions as a threshold document.
         It is not an introduction, summary, or promotional overview.
@@ -154,7 +186,10 @@
     
     <!-- W2 -->
     <section class="warning scope">
+     <div class="warning-header">
+      <span class="glyph">!</span>
       <h4>Scope and Intent</h4>
+     </div>
       <p>
         The material beyond this threshold explores complex phenomena involving
         meaning-making, cognition, emotional structure, symbolic representation,
@@ -173,7 +208,10 @@
 
     <!-- W3 -->
     <section class="warning epistemic">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Epistemic Position</h4>
+     </div>
       <p>
         Claims made in this work operate at the level of articulation,
         interpretation, and conceptual modeling.
@@ -192,7 +230,10 @@
 
     <!-- W4 -->
     <section class="warning cognitive-load">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Cognitive Load Advisory</h4>
+     </div>
       <p>
         Sustained attention is required.
         The material is intentionally dense and layered,
@@ -211,7 +252,10 @@
 
     <!-- W5 -->
     <section class="warning interpretive-risk">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Interpretive Risk Notice</h4>
+     </div>
       <p>
         Misinterpretation is possible, particularly if the material
         is approached with expectations of linear explanation,
@@ -230,7 +274,10 @@
 
     <!-- W6 -->
     <section class="warning ethical">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Ethical Engagement Notice</h4>
+     </div>
       <p>
         This work engages with aspects of human experience that may be
         personally meaningful or psychologically resonant.
@@ -249,12 +296,15 @@
 
     <!-- W7 -->
     <section class="warning critical authorial">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Authorial Responsibility</h4>
+     </div>
       <p>
         Reading alone is insufficient.
         Engagement with this material carries interpretive responsibility.
       </p>
-      <p>
+      <p class="emphasis">
         You are expected to justify, extend, or refuse this warning explicitly.
       </p>
       <p>
@@ -270,7 +320,10 @@
 
     <!-- W8 -->
     <section class="warning exit-right">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Right of Refusal</h4>
+     </div>
       <p>
         You may stop here.
         Choosing not to proceed is a complete and valid outcome.
@@ -287,7 +340,10 @@
 
     <!-- W9 -->
     <section class="warning non-instrumental">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Non-Instrumentality Notice</h4>
+     </div>
       <p>
         This material is not optimized for extraction, optimization,
         or immediate application.
@@ -305,7 +361,10 @@
 
     <!-- W10 -->
     <section class="warning temporal">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Temporal Expectation Advisory</h4>
+     </div>
       <p>
         Understanding may not arise during initial reading.
         Insight, if it occurs, may emerge later,
@@ -323,7 +382,10 @@
 
     <!-- W11 -->
     <section class="warning context">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Context Integrity Warning</h4>
+     </div>
       <p>
         Isolated excerpts may misrepresent intent,
         tone, or structure.
@@ -341,7 +403,10 @@
 
     <!-- W12 -->
     <section class="warning positional">
+     <div class="warning-header">
+      <span class="glyph">!</span>      
       <h4>Reader Position Disclosure</h4>
+     </div>
       <p>
         Interpretation is shaped by the reader’s background,
         expectations, and current state.
@@ -364,8 +429,8 @@
 
     <section class="threshold-state">
       <p>
-        Threshold state: STATUS - unresolved.
-        Engagement state: not yet determined.
+        Threshold state: STATUS - unresolved.<br>
+        Engagement state: not yet determined.<br>
       </p>
     </section>
 

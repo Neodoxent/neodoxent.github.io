@@ -26,10 +26,16 @@
 
   <style>
     :root {
-      /* Color Doctrine — Metals */
-      --gold-brine: #b2905e;       /* oxidized, semantic, suspension */
-      --gold-authority: #8f6a2f;   /* metallic, directive, seal */
+      /* Field Substances */
+      --field-black: #0f0f11;        /* null / containment */
+      --field-brine: #e7dbc6;        /* muted brown-gold suspension */
+      --field-cream: #fdf6ec;        /* manuscript / witness surface */
+    
+      /* Metals */
+      --gold-brine: #b2905e;         /* oxidized semantic gold */
+      --gold-authority: #8f6a2f;     /* metallic directive gold */
     }
+
     /* --------------------------------------------------
        GLOBAL FIELD (Black Field)
        -------------------------------------------------- */
@@ -77,7 +83,7 @@
        AURA PANEL (Brine Field)
        -------------------------------------------------- */
     .aura {
-      background: #fdf6ec; /* Brine Field */
+      background: var(--field-brine); /* Brine Field */
       color: #4c3f36;
       border-radius: 6px;
       overflow: hidden;

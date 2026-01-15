@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
+  <meta name="threshold-role" content="engagement-gate">
+  <meta name="threshold-version" content="0.1">
+  <meta name="threshold-authority" content="reader">
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Threshold</title>
 
   <!-- Threshold v0.1 — structural scaffold -->
+
+  <!--
+    Threshold note:
+    If you are reading this, you are already operating at the correct level.
+    Nothing here is hidden.
+  -->
   
   <style>
    :root {
      --accent: #6A8F8A;
+     --threshold-state: unresolved;
+     --observer-effect: latent;
    }
 
     body {
       margin: 0;
       padding: 3rem 1.5rem;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #0F1214;
       color: #E2E4E5;
     }
@@ -53,6 +66,18 @@
       );
     }
 
+    .warning.authorial {
+      cursor: default;
+    }
+    
+    .warning.authorial:hover {
+      background: linear-gradient(
+        to right,
+        rgba(194,161,90,0.04),
+        rgba(255,255,255,0)
+      );
+    }
+
     .warning-header {
       display: flex;
       align-items: center;
@@ -64,8 +89,9 @@
     
     .warning-header h4 {
       margin: 0;
+      font-weight: 500;
       font-size: 0.75rem;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(194, 161, 90, 0.85); /* muted gold */
     /*  color: #9FB8B3;  pale oxidized copper-green */
@@ -102,10 +128,11 @@
     }
 
     .micro {
+      font-weight: 400;  
       font-family: "Inter", sans-serif;
       font-size: 0.7rem;
       color: #7E8489;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
       margin: 1.25rem 0;
     }
 
@@ -152,6 +179,13 @@
       font-weight: 600;
     }
 
+    .micro,
+    .warning-header h4,
+    .threshold-decision h3 {
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+
     
   </style>
 </head>
@@ -166,9 +200,10 @@
         This page establishes conditions of engagement.
         Proceeding constitutes acknowledgment.
       </p>
-      <p class="threshold-state">
+      <p class="threshold-state" title="Status is evaluated by the reader, not the system.">
         Entry status: not yet determined.
       </p>
+
     </section>
 
   <section class="warnings-stack public">
@@ -444,6 +479,11 @@
         Engagement state: not yet determined.<br>
       </p>
     </section>
+
+    <p class="micro">
+      No system on this page records your choice.
+    </p>
+
 
     <p class="micro">
       The following choice determines whether engagement continues.

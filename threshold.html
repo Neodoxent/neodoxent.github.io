@@ -8,7 +8,9 @@
   <!-- Threshold v0.1 — structural scaffold -->
   
   <style>
-    /* No aesthetics yet. Structure only. */
+   :root {
+     --accent: #6A8F8A;
+   }
 
     body {
       margin: 0;
@@ -25,6 +27,10 @@
 
     section {
       margin-bottom: 3rem;
+    }
+
+    .pre-orientation {
+      opacity: 0.85;
     }
 
     .orientation {
@@ -62,38 +68,344 @@
       opacity: 0.6;
       font-size: 0.85rem;
     }
+
+    .micro {
+      font-family: "Inter", sans-serif;
+      font-size: 0.7rem;
+      color: #7E8489;
+      letter-spacing: 0.02em;
+      margin: 1.25rem 0;
+    }
+
+    .threshold-decision {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #1E2326;
+    }
+
+    .threshold-decision h3 {
+      font-family: "Inter", sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7E8489;
+      margin-bottom: 1rem;
+    }
+    
+    .decision-context {
+      font-family: "Inter", sans-serif;
+      font-size: 0.85rem;
+      color: #9AA0A6;
+    }
+    
+    .decision-options {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .decision-options a {
+      font-family: "Inter", sans-serif;
+      font-size: 0.85rem;
+      text-decoration: none;
+      color: #E2E4E5;
+    }
+    
+    .decision-options a:hover {
+      color: var(--accent);
+    }
+    
   </style>
 </head>
 
 <body>
   <div class="container">
 
-    <section class="orientation">
+<main>
+
+    <section class="pre-orientation">
       <p>
         This page establishes conditions of engagement.
         Proceeding constitutes acknowledgment.
       </p>
     </section>
 
-    <section class="warnings-stack">
+  <section class="warnings-stack public">
 
-      <section class="warning critical" data-lock="authorial">
-        <h4>Authorial Responsibility</h4>
-        <p>
-          Reading alone is insufficient. You are expected to justify,
-          extend, or refuse this warning explicitly.
-        </p>
-      </section>
-
-      <!-- Additional warnings will be stacked here -->
-
+    <!-- W1 -->
+    <section class="warning orientation">
+      <h4>Orientation Notice</h4>
+      <p>
+        This page functions as a threshold document.
+        It is not an introduction, summary, or promotional overview.
+        Its purpose is to establish the conditions under which subsequent material
+        may be meaningfully engaged.
+      </p>
+      <p>
+        What follows is concerned with structure, interpretation, and method,
+        rather than instruction or persuasion.
+      </p>
     </section>
+
+  <p class="micro">
+    This notice establishes what kind of material this is.
+  </p>
+    
+    <!-- W2 -->
+    <section class="warning scope">
+      <h4>Scope and Intent</h4>
+      <p>
+        The material beyond this threshold explores complex phenomena involving
+        meaning-making, cognition, emotional structure, symbolic representation,
+        and systems-level thinking.
+      </p>
+      <p>
+        It is exploratory rather than doctrinal.
+        It does not present fixed conclusions, prescriptive frameworks,
+        or authoritative models intended for universal application.
+      </p>
+    </section>
+    
+  <p class="micro">
+    This notice clarifies how claims should be understood.
+  </p>
+
+    <!-- W3 -->
+    <section class="warning epistemic">
+      <h4>Epistemic Position</h4>
+      <p>
+        Claims made in this work operate at the level of articulation,
+        interpretation, and conceptual modeling.
+        They are not empirical findings, clinical directives,
+        or statements of external fact.
+      </p>
+      <p>
+        Valid engagement depends on the reader’s ability to distinguish
+        between description, metaphor, and lived interpretation.
+      </p>
+    </section>
+
+  <p class="micro">
+    This notice concerns the demands placed on attention.
+  </p>
+
+    <!-- W4 -->
+    <section class="warning cognitive-load">
+      <h4>Cognitive Load Advisory</h4>
+      <p>
+        Sustained attention is required.
+        The material is intentionally dense and layered,
+        and is not designed for rapid consumption or surface-level scanning.
+      </p>
+      <p>
+        Readers may experience delayed comprehension,
+        recursive reflection, or the need to revisit sections
+        after intervals of rest or distance.
+      </p>
+    </section>
+
+   <p class="micro">
+     This notice concerns how meaning may behave under strain.
+   </p>
+
+    <!-- W5 -->
+    <section class="warning interpretive-risk">
+      <h4>Interpretive Risk Notice</h4>
+      <p>
+        Misinterpretation is possible, particularly if the material
+        is approached with expectations of linear explanation,
+        immediate clarity, or instrumental utility.
+      </p>
+      <p>
+        In such cases, ambiguity may increase rather than resolve,
+        and perceived instability may reflect interpretive mismatch
+        rather than properties of the material itself.
+      </p>
+    </section>
+
+  <p class="micro">
+    This notice concerns personal boundaries and responsibility.
+  </p>
+
+    <!-- W6 -->
+    <section class="warning ethical">
+      <h4>Ethical Engagement Notice</h4>
+      <p>
+        This work engages with aspects of human experience that may be
+        personally meaningful or psychologically resonant.
+      </p>
+      <p>
+        Readers are encouraged to maintain appropriate boundaries,
+        to disengage if distress arises,
+        and to avoid treating the material as diagnostic, therapeutic,
+        or directive in nature.
+      </p>
+    </section>
+
+  <p class="micro">
+    This notice concerns the reader’s role in interpretation.
+  </p>
+
+    <!-- W7 -->
+    <section class="warning critical authorial">
+      <h4>Authorial Responsibility</h4>
+      <p>
+        Reading alone is insufficient.
+        Engagement with this material carries interpretive responsibility.
+      </p>
+      <p>
+        You are expected to justify, extend, or refuse this warning explicitly.
+      </p>
+      <p>
+        The reader is responsible for how meaning is constructed,
+        extended, challenged, or refused.
+        No authority is delegated by proximity to the work itself.
+      </p>
+    </section>
+
+  <p class="micro">
+    This notice affirms the legitimacy of disengagement.
+  </p>
+
+    <!-- W8 -->
+    <section class="warning exit-right">
+      <h4>Right of Refusal</h4>
+      <p>
+        You may stop here.
+        Choosing not to proceed is a complete and valid outcome.
+      </p>
+      <p>
+        No understanding, insight, or loss is incurred by disengagement.
+        The threshold exists to preserve clarity, not to compel entry.
+      </p>
+    </section>
+
+  <p class="micro">
+    This notice concerns how the material should not be used.
+  </p>
+
+    <!-- W9 -->
+    <section class="warning non-instrumental">
+      <h4>Non-Instrumentality Notice</h4>
+      <p>
+        This material is not optimized for extraction, optimization,
+        or immediate application.
+      </p>
+      <p>
+        Attempts to treat it as a technique, framework,
+        or productivity instrument may result in frustration
+        or conceptual flattening.
+      </p>
+    </section>
+
+   <p class="micro">
+     This notice concerns when understanding may occur.
+   </p>
+
+    <!-- W10 -->
+    <section class="warning temporal">
+      <h4>Temporal Expectation Advisory</h4>
+      <p>
+        Understanding may not arise during initial reading.
+        Insight, if it occurs, may emerge later,
+        outside the moment of engagement.
+      </p>
+      <p>
+        This is a property of complex conceptual material,
+        not a measure of reader aptitude.
+      </p>
+    </section>
+    
+  <p class="micro">
+    This notice concerns how the material holds together.
+  </p>
+
+    <!-- W11 -->
+    <section class="warning context">
+      <h4>Context Integrity Warning</h4>
+      <p>
+        Isolated excerpts may misrepresent intent,
+        tone, or structure.
+      </p>
+      <p>
+        Meaning here is relational.
+        Removing material from its surrounding context
+        may distort both content and effect.
+      </p>
+    </section>
+
+   <p class="micro">
+     This notice concerns what the reader brings with them.
+   </p>
+
+    <!-- W12 -->
+    <section class="warning positional">
+      <h4>Reader Position Disclosure</h4>
+      <p>
+        Interpretation is shaped by the reader’s background,
+        expectations, and current state.
+      </p>
+      <p>
+        Disagreement, resonance, or confusion
+        may reveal as much about position
+        as about the material itself.
+      </p>
+    </section>
+
+  <p>You have now been informed of the conditions of engagement.</p>
+
+  </section>
+
+  <!-- threshold-decision comes later -->
+
+</main>
+
 
     <section class="threshold-state">
       <p>
-        Status: Undefined.
+        Threshold state: STATUS - unresolved.
+        Engagement state: not yet determined.
       </p>
     </section>
+
+    <p class="micro">
+      The following choice determines whether engagement continues.
+    </p>
+
+    <section class="threshold-decision">
+
+      <h3>Threshold Decision</h3>
+    
+      <p class="decision-context">
+        You have reached a decision point.
+      </p>
+    
+      <p>
+        Proceeding beyond this point indicates that you understand
+        the nature of the material, the conditions of engagement,
+        and your role in interpretation.
+      </p>
+    
+      <p>
+        Choosing not to proceed carries no penalty
+        and requires no justification.
+      </p>
+    
+      <div class="decision-options">
+    
+        <a href="recursion.html" class="proceed">
+          Proceed
+        </a>
+    
+        <a href="/" class="exit">
+          Exit
+        </a>
+    
+      </div>
+    
+    </section>
+
 
   </div>
 </body>

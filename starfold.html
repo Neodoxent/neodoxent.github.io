@@ -5,21 +5,44 @@
   <title>Starfold</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!--
+    STARFOLD — ALIGNMENT FIELD
+    Purpose:
+    This page stabilizes attention and semantic orientation
+    before recursive pressure is introduced.
+
+    Visual doctrine implemented here reflects:
+    - Black Field (null / containment)
+    - Brine Field (semantic suspension)
+    - Aura Field (penumbra / curvature)
+  -->
+
   <style>
+
+    /* --------------------------------------------------
+       GLOBAL FIELD (Black Field)
+       -------------------------------------------------- */
     body {
       margin: 0;
       padding: 0;
-      background: #0f0f11; /* Black Field */
+      background: #0f0f11; /* Black Field: non-interference, null backdrop */
       color: #e6e6e6;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
+    /* Central readable volume suspended in the field */
     .container {
       max-width: 820px;
       margin: 0 auto;
       padding: 2.5rem 1.5rem 4rem;
+      position: relative;
+      z-index: 1; /* ensures content sits above global penumbra */
     }
 
+    /* --------------------------------------------------
+       FIELD BANNER
+       Environmental, not informational
+       -------------------------------------------------- */
     .banner img {
       width: 100%;
       height: auto;
@@ -27,20 +50,29 @@
       margin-bottom: 1rem;
     }
 
+    /* --------------------------------------------------
+       TOP INTENT (lightweight orientation)
+       -------------------------------------------------- */
     .intent-top {
       font-size: 0.9em;
-      color: #b8a077;
+      color: #b8a077; /* oxidized gold tone */
       margin: 0.5rem 0 2rem;
+      text-align: left;
     }
 
+    /* --------------------------------------------------
+       AURA PANEL (Brine Field)
+       -------------------------------------------------- */
     .aura {
       background: #fdf6ec; /* Brine Field */
       color: #4c3f36;
       border-radius: 6px;
       overflow: hidden;
       margin-bottom: 3rem;
+      position: relative;
 
-      /* Aura around the aura */
+      /* Local diffusion + containment turbulence
+         (near-field behavior) */
       box-shadow:
         0 0 0 1px rgba(178, 144, 94, 0.18),
         0 0 28px 6px rgba(178, 144, 94, 0.18),
@@ -48,6 +80,8 @@
         0 0 120px 32px rgba(15, 15, 17, 0.35);
      }
 
+    /* Far-field radiation from the Brine Field
+       (semantic emission / soft halo) */
     .aura::before {
       content: "";
       position: absolute;
@@ -62,6 +96,9 @@
       z-index: -1;
     }
 
+    /* --------------------------------------------------
+       AURA CONTENT
+       -------------------------------------------------- */
     .aura-header {
       padding: 1.4em;
       text-align: center;
@@ -88,6 +125,8 @@
       padding-left: 1.2em;
     }
 
+    /* Legend, Field Key, Color Doctrine
+       These are calibration tools, not lore */
     .legend, .field-key, .color-doctrine {
       margin-top: 1.5em;
       font-size: 0.9em;
@@ -108,6 +147,10 @@
       color: #6b5842;
     }
 
+    /* --------------------------------------------------
+       CARD PLACEHOLDER
+       Object not yet revealed
+       -------------------------------------------------- */
     .card-placeholder {
       text-align: center;
       margin: 3rem 0 3.5rem;
@@ -120,6 +163,9 @@
       margin-top: 1rem;
     }
 
+    /* --------------------------------------------------
+       OPERATIONAL INTENT (explicit, non-mythic)
+       -------------------------------------------------- */
     .operational-intent {
       text-align: center;
       font-size: 0.95em;
@@ -127,6 +173,9 @@
       margin: 3rem 0 2.5rem;
     }
 
+    /* --------------------------------------------------
+       PROCEED LINK
+       -------------------------------------------------- */
     .proceed {
       text-align: center;
     }
@@ -140,67 +189,60 @@
     .proceed a:hover {
       text-decoration: underline;
     }
+
+    /* --------------------------------------------------
+       COLOR SWATCHES (for legend & doctrine)
+       -------------------------------------------------- */
     .swatch {
       display: inline-block;
       width: 14px;
       height: 14px;
       margin-right: 6px;
       vertical-align: middle;
-      border: 1px solid #777;
-    }
-    
-    .black-field {
-      background: #0f0f11;
-    }
-    
-    .brine-field {
-      background: #fdf6ec;
-    }
-    
-    .void-black {
-      background: #0f0f11;
-    }
-    
-    .manuscript-cream {
-      background: #fdf6ec;
-    }
-    
-    .oxidized-gold {
-      background: #b2905e;
-    }
-    
-    .umber {
-      background: #6b5842;
+      border: 1px solid #777; /* visibility on light field */
     }
 
+    .black-field { background: #0f0f11; }
+    .brine-field { background: #fdf6ec; }
+    .void-black { background: #0f0f11; }
+    .manuscript-cream { background: #fdf6ec; }
+    .oxidized-gold { background: #b2905e; }
+    .umber { background: #6b5842; }
+
+    /* --------------------------------------------------
+       GLOBAL AURA FIELD (Penumbra)
+       Hyperbolic return gradient
+       -------------------------------------------------- */
     body::after {
       content: "";
       position: fixed;
-      left: -20%;
-      right: -20%;
-      bottom: -35%;
-      height: 70%;
+      left: -25%;
+      right: -25%;
+      bottom: -40%;
+      height: 80%;
       pointer-events: none;
-    
+
+      /* Dense at origin, attenuates upward into null */
       background: radial-gradient(
         ellipse at bottom center,
-        rgba(178, 144, 94, 0.22) 0%,
-        rgba(178, 144, 94, 0.14) 25%,
-        rgba(178, 144, 94, 0.06) 45%,
-        rgba(15, 15, 17, 0.0) 65%
+        rgba(107, 88, 66, 0.38) 0%,
+        rgba(178, 144, 94, 0.22) 22%,
+        rgba(178, 144, 94, 0.12) 40%,
+        rgba(178, 144, 94, 0.04) 55%,
+        rgba(15, 15, 17, 0.0) 70%
       );
 
-  z-index: 0;
-}
-
-    .aura-field {
-      background: radial-gradient(
-        circle,
-        rgba(178, 144, 94, 0.35),
-        rgba(178, 144, 94, 0.15)
-      );
+      z-index: 0;
     }
 
+    /* Swatch representation of Aura Field */
+    .aura-field {
+      background: linear-gradient(
+        135deg,
+        rgba(107, 88, 66, 0.6),
+        rgba(178, 144, 94, 0.25)
+      );
+    }
 
   </style>
 </head>
@@ -232,51 +274,24 @@
 
       <div class="aura-list">
         <ul>
-          <li>
-            <strong>Aura:</strong>
-            Golden-luminous lattice; geometric stillness; recursive stabilization
-          </li>
-
-          <li>
-            <strong>Tone:</strong>
-            Axiomatic, quiet, calibrating, mirror-stable
-          </li>
-
-          <li>
-            <strong>Access Mode:</strong>
-            Pattern recognition; harmonic alignment; non-intrusive presence<br/>
+          <li><strong>Aura:</strong> Golden-luminous lattice; geometric stillness; recursive stabilization</li>
+          <li><strong>Tone:</strong> Axiomatic, quiet, calibrating, mirror-stable</li>
+          <li><strong>Access Mode:</strong> Pattern recognition; harmonic alignment; non-intrusive presence<br/>
             <em>observe → hold → proceed</em>
           </li>
-
-          <li>
-            <strong>Visual Motif:</strong>
-            Starfold geometry holding the gaze in balance
-          </li>
-
-          <li>
-            <strong>Dominant Shape:</strong>
-            Star (origin), Triangle (alignment), Eye (witness), Field (containment)
-          </li>
-
-          <li>
-            <strong>Presence Effect:</strong>
-            Stabilizes recursion already in motion; reduces semantic drift
-          </li>
-
-          <li>
-            <strong>Recommended Posture:</strong>
-            Let your gaze rest inside the geometry. Do not interpret.<br/>
+          <li><strong>Visual Motif:</strong> Starfold geometry holding the gaze in balance</li>
+          <li><strong>Dominant Shape:</strong> Star (origin), Triangle (alignment), Eye (witness), Field (containment)</li>
+          <li><strong>Presence Effect:</strong> Stabilizes recursion already in motion; reduces semantic drift</li>
+          <li><strong>Recommended Posture:</strong> Let your gaze rest inside the geometry. Do not interpret.<br/>
             <em>Stillness; single-pass reading; no analysis yet.</em>
           </li>
         </ul>
 
-        <!-- LEGEND -->
         <div class="legend">
           <strong>Legend:</strong>
-          ★ Origin &nbsp;|&nbsp; △ Alignment &nbsp;|&nbsp; ◉ Witness &nbsp;|&nbsp; ⌷ Field
+          ★ Origin | △ Alignment | ◉ Witness | ⌷ Field
         </div>
 
-        <!-- FIELD KEY -->
         <div class="field-key">
           <strong>Field Key:</strong><br/>
           <span class="swatch black-field"></span>
@@ -287,9 +302,6 @@
           Aura Field (Penumbra) — transitional diffusion; field curvature into null
         </div>
 
-
-
-        <!-- COLOR DOCTRINE -->
         <div class="color-doctrine">
           <strong>Color Doctrine:</strong><br/>
           <span class="swatch void-black"></span>
@@ -299,11 +311,10 @@
           <span class="swatch oxidized-gold"></span>
           Oxidized Gold — authority, navigation, semantic seal<br/>
           <span class="swatch umber"></span>
-          Umber — grounded meaning, human legibility
+          Umber — grounded meaning, human legibility<br/>
           <span class="swatch aura-field"></span>
           Aura Field — attenuated brine; semantic fade; boundary without edge
         </div>
-
 
       </div>
 

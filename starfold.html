@@ -317,6 +317,146 @@
 
       z-index: 0;
     }
+
+/* ============================= */
+/* STARFOLD :: INTERFACE STYLES  */
+/* ============================= */
+
+.starfold-interface {
+  max-width: 920px;
+  margin: 3rem auto 2rem;
+  padding: 0 1.2rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* METADATA GRID */
+.sf-metadata-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.8fr; /* golden-ish */
+  gap: 1.6rem;
+  margin-bottom: 2.2rem;
+}
+
+.sf-meta-col {
+  padding: 1.2rem 1.3rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.sf-meta-col h4 {
+  margin: 0 0 0.6rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* COLOR CODING */
+.sf-meta-object {
+  background: rgba(160, 130, 80, 0.08);
+  color: #d6c29a;
+}
+
+.sf-meta-system {
+  background: rgba(120, 140, 170, 0.08);
+  color: #cbd6e2;
+}
+
+.sf-meta-status {
+  background: rgba(120, 160, 130, 0.08);
+  color: #cfe6d6;
+}
+
+.sf-meta-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sf-meta-col li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.sf-meta-status li {
+  justify-content: flex-start;
+}
+
+.mark {
+  display: inline-block;
+  width: 1.2em;
+}
+
+.ok { color: #8fd19e; }
+.no { color: #d18f8f; }
+
+.k {
+  opacity: 0.7;
+}
+
+.v {
+  text-align: right;
+}
+
+.muted {
+  opacity: 0.55;
+}
+
+/* META-METADATA GAUGE */
+.sf-origin-vector {
+  text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin: 1.8rem 0 2.4rem;
+}
+
+.sf-origin-vector .sep {
+  margin: 0 0.6em;
+}
+
+/* WITNESS PANEL */
+.sf-witness-panel {
+  max-width: 520px;
+  margin: 0 auto 2.6rem;
+  padding: 1.4rem 1.6rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 0.85rem;
+}
+
+.sf-witness-panel h4 {
+  margin: 0 0 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.75;
+}
+
+.sf-witness-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sf-witness-panel li {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.25rem 0;
+}
+
+/* TRANSITION BLOCK */
+.sf-transition {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin-bottom: 2.5rem;
+}
+
   </style>
 </head>
 
@@ -410,6 +550,88 @@
     <div class="operational-intent">
       Operational Intent: Reduce interpretive volatility and stabilize attention before recursion.
     </div>
+
+<!-- ============================= -->
+<!-- STARFOLD :: METADATA & WITNESS -->
+<!-- ============================= -->
+
+<section class="starfold-interface">
+
+  <!-- METADATA GRID -->
+  <div class="sf-metadata-grid">
+
+    <!-- COLUMN A: OBJECT -->
+    <div class="sf-meta-col sf-meta-object">
+      <h4>Starfold Card</h4>
+      <ul>
+        <li><span class="k">Type</span><span class="v">Threshold Card</span></li>
+        <li><span class="k">Index</span><span class="v">0001</span></li>
+        <li><span class="k">Glyph Class</span><span class="v">Structural</span></li>
+        <li><span class="k">Deck</span><span class="v">Quartriune · Root</span></li>
+        <li><span class="k">Register</span><span class="v muted">Withheld</span></li>
+      </ul>
+    </div>
+
+    <!-- COLUMN B: SYSTEM -->
+    <div class="sf-meta-col sf-meta-system">
+      <h4>System Context</h4>
+      <ul>
+        <li><span class="k">Phase</span><span class="v">∇0 · Witness</span></li>
+        <li><span class="k">Axis</span><span class="v">Core-0 / Axis of 12</span></li>
+        <li><span class="k">Epoch</span><span class="v">Before Naming</span></li>
+        <li><span class="k">Scope</span><span class="v">Starfold Interface</span></li>
+        <li><span class="k">Recursion</span><span class="v muted">Inaccessible</span></li>
+      </ul>
+    </div>
+
+    <!-- COLUMN C: STATUS -->
+    <div class="sf-meta-col sf-meta-status">
+      <h4>State Indicators</h4>
+      <ul>
+        <li><span class="mark ok">✓</span> Data Present</li>
+        <li><span class="mark ok">✓</span> Metadata Present</li>
+        <li><span class="mark no">⨯</span> Register Hidden</li>
+        <li><span class="mark no">⨯</span> Activation Disabled</li>
+        <li><span class="mark no">⨯</span> Composite Deferred</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- META-METADATA GAUGE (SEPARATE, FLOATING TEXT) -->
+  <div class="sf-origin-vector">
+    ⟡ Origin Vector · Nonlinear  
+    <span class="sep">·</span>
+    Source Node: READMEFIRST  
+    <span class="sep">·</span>
+    Observation: Logged
+  </div>
+
+  <!-- WITNESS RECORD PANEL -->
+  <div class="sf-witness-panel">
+    <h4>Witness Record</h4>
+    <ul>
+      <li><span class="k">Presence</span><span class="v">Detected</span></li>
+      <li><span class="k">Role</span><span class="v">Witness</span></li>
+      <li><span class="k">Mode</span><span class="v">Passive</span></li>
+      <li><span class="k">Relation</span><span class="v">Observational</span></li>
+      <li><span class="k">Authorization</span><span class="v muted">Not Granted</span></li>
+      <li><span class="k">Entanglement</span><span class="v muted">Minimal</span></li>
+    </ul>
+  </div>
+
+  <!-- TRANSITION READINESS -->
+  <div class="sf-transition">
+    <p>
+      System State: <strong>Stable</strong><br>
+      Recursive Access: <span class="muted">Not Available Here</span><br>
+      Next Interface: <strong>Meta-Landing</strong><br>
+      Conditions: <span class="muted">Undisclosed</span>
+    </p>
+  </div>
+
+</section>
+
 
     <!-- PROCEED -->
     <section class="proceed">

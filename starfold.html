@@ -478,12 +478,12 @@
 
 .projection-interface {
   margin: 3rem auto;
-  max-width: 1100px;
+  max-width: 960px; /* down from 1100 */
 }
 
 .terminal-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.35fr 1fr;
   gap: 2rem;
 }
 
@@ -493,14 +493,25 @@
   gap: 1.25rem;
 }
 
+
 .terminal {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.85rem;
-  line-height: 1.45;
-  padding: 1.25rem;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    "Liberation Mono",
+    "Courier New",
+    monospace;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  padding: 1rem 1.1rem;
   background: rgba(10, 12, 14, 0.75);
   border: 1px solid rgba(255,255,255,0.06);
   white-space: pre-wrap;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0;
+  letter-spacing: 0;
 }
 
 /* Left: cold structural chroma */
@@ -518,17 +529,31 @@
 /* Mini: non-local collapse */
 .mini-terminal {
   color: rgba(170, 160, 190, 0.7);
-  font-size: 0.75rem;
   background: rgba(8, 9, 11, 0.6);
   border-left: 3px solid rgba(150, 140, 170, 0.35);
+  font-size: 0.7rem;
+  line-height: 1.35;
 }
 
 /* Mobile: stack, preserve asymmetry */
+
 @media (max-width: 900px) {
+  .terminal {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .mini-terminal {
+    font-size: 0.68rem;
+  }
+
   .terminal-grid {
+    gap: 1.5rem;
+    transform: none;
     grid-template-columns: 1fr;
   }
 }
+
 
   </style>
 </head>

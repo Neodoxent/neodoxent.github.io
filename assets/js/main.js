@@ -14,9 +14,30 @@ function setText(id,value){ const node=document.getElementById(id); if(node) nod
 function getJson(key,fallback){ try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch(e){ return fallback; } }
 function setJson(key,value){ localStorage.setItem(key, JSON.stringify(value)); }
 function getLog(){ return getJson(LOG_KEY, []); }
-function saveLog(log){ setJson(LOG_KEY, log.slice(-240)); }
+function saveLog(log){ setJson(LOG_KEY, log.slice(-260)); }
 function stamp(){ return new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' }); }
 function pct(value,max){ return Math.max(0, Math.min(100, Math.round((Number(value||0)/max)*100))); }
+function clamp(value,min,max){ return Math.max(min, Math.min(max, value)); }
+
+function deriveResponse(state){
+  const r = state.resources || {};
+  const c = state.coupling || {};
+  const qSpread = Object.values(state.qbits || {}).filter(v=>v>0).length;
+  const sSpread = Object.values(state.strata || {}).filter(v=>v>0).length;
+  const accepted = (state.accepted || []).length;
+  const pace = Math.floor(accepted / Math.max(1, (state.time || 1) / 90));
+  const imbalance = Math.max(0, (state.coherence||0) - ((r.signal||0) + (r.attention||0)));
+  const stability = clamp((c.orientationDamping||0) + (c.traceMemory||0) + Math.floor((r.witness||0)/2), 0, 12);
+  const tension = clamp((state.entanglement||0) + imbalance + pace - (c.orientationDamping||0), 0, 18);
+  const readiness = clamp((c.attentionSignal||0) + (c.signalCoherence||0) + (c.coherenceResonance||0) + stability - Math.floor(tension/3), 0, 18);
+  const pressure = clamp(tension - stability + Math.floor((qSpread+sSpread)/3), 0, 12);
+  let mode = 'Listening';
+  if(tension >= 12 && readiness <= 3) mode = 'Overloaded';
+  else if(pressure >= 7) mode = 'Resistant';
+  else if(readiness >= 9 && stability >= 5) mode = 'Receptive';
+  else if(stability >= 5) mode = 'Stabilizing';
+  return { mode, tension, readiness, pressure, stability };
+}
 
 function ensureFieldLog(){
   let terminal = el('#field-log-terminal');
@@ -53,7 +74,7 @@ function renderLog(){
   const body = terminal.querySelector('#field-log-body');
   latestNode.textContent = latest ? '— ' + latest.message : '— Online.';
   body.innerHTML = log.slice().reverse().map(entry => {
-    const color = entry.type === 'unlock' ? '#6a8f8a' : entry.type === 'accept' ? '#c2a15a' : entry.type === 'segment' ? '#e7e1d6' : entry.type === 'coupling' ? '#9bc7c1' : entry.type === 'audit' ? '#d1a66a' : '#9c958b';
+    const color = entry.type === 'unlock' ? '#6a8f8a' : entry.type === 'accept' ? '#c2a15a' : entry.type === 'segment' ? '#e7e1d6' : entry.type === 'coupling' ? '#9bc7c1' : entry.type === 'response' ? '#d9b46f' : entry.type === 'audit' ? '#d1a66a' : '#9c958b';
     return '<div style="padding:.32rem 0;border-bottom:1px solid rgba(255,255,255,.05);"><span style="opacity:.55;">'+entry.time+'</span> <span style="color:'+color+';">'+entry.message+'</span></div>';
   }).join('') || '<div style="opacity:.65;padding:.4rem 0;">No events recorded yet.</div>';
 }
@@ -88,15 +109,8 @@ function auditSystem(state){
 }
 
 function signature(state){
-  return {
-    aura: state.aura,
-    vector: state.vector,
-    complexity: state.complexity,
-    resonance: state.resonance,
-    manifestFactor: state.manifestFactor,
-    acceptedCount: state.accepted.length,
-    coupling: state.coupling || {}
-  };
+  const response = deriveResponse(state);
+  return { aura: state.aura, vector: state.vector, complexity: state.complexity, resonance: state.resonance, manifestFactor: state.manifestFactor, acceptedCount: state.accepted.length, coupling: state.coupling || {}, response };
 }
 
 function observeField(state){
@@ -105,25 +119,24 @@ function observeField(state){
   if(previous){
     if(previous.aura !== current.aura) writeLog('Aura shifted: '+previous.aura+' → '+current.aura+'.','coupling');
     if(previous.vector !== current.vector) writeLog('Vector shifted: '+previous.vector+' → '+current.vector+'.','coupling');
-    Object.entries(current.coupling || {}).forEach(([key,value]) => {
-      const old = previous.coupling ? previous.coupling[key] : undefined;
-      if(value > 0 && value !== old) writeLog('Coupling adjusted: '+key+' = '+value+'.','coupling');
-    });
+    if(previous.response && previous.response.mode !== current.response.mode) writeLog('Response shifted: '+previous.response.mode+' → '+current.response.mode+'.','response');
+    Object.entries(current.coupling || {}).forEach(([key,value]) => { const old = previous.coupling ? previous.coupling[key] : undefined; if(value > 0 && value !== old) writeLog('Coupling adjusted: '+key+' = '+value+'.','coupling'); });
   }
   setJson(LAST_STATE_KEY, current);
 }
 
 function renderIndex(state){
+  const response = deriveResponse(state);
   let idx = el('#indexical');
   if(!idx){ idx = document.createElement('div'); idx.id='indexical'; idx.style.cssText='padding:.5rem 1rem;font-size:.8rem;opacity:.72;border-bottom:1px solid rgba(255,255,255,.08);'; document.body.prepend(idx); }
-  idx.innerHTML = '<strong>Node:</strong> Meta-Landing | <strong>Vector:</strong> '+(state.vector||'zephyr')+' | <strong>Aura:</strong> '+(state.aura||'Unformed')+' | <strong>Complexity:</strong> '+(state.complexity||0)+' | <strong>Manifest:</strong> '+(state.manifestFactor||0);
+  idx.innerHTML = '<strong>Node:</strong> Meta-Landing | <strong>Vector:</strong> '+(state.vector||'zephyr')+' | <strong>Aura:</strong> '+(state.aura||'Unformed')+' | <strong>Complexity:</strong> '+(state.complexity||0)+' | <strong>Manifest:</strong> '+(state.manifestFactor||0)+' | <strong>Response:</strong> '+response.mode;
 }
 
 function renderResources(state){
   let panel = el('#resource-panel');
   if(!panel){ panel=document.createElement('div'); panel.id='resource-panel'; panel.style.cssText='margin:0 1rem 1rem;padding:.75rem 1rem;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,.08);'; document.body.insertBefore(panel, document.body.children[1] || null); }
-  const r=state.resources||{}, c=state.coupling||{};
-  panel.innerHTML='<strong>Field Resources</strong><br>Attention: '+(r.attention||0)+' | Orientation: '+(r.orientation||0)+' | Signal: '+(r.signal||0)+'<br>Resonance: '+(r.resonance||0)+' | Witness: '+(r.witness||0)+' | Trace: '+(r.trace||0)+'<br><span style="opacity:.72">Couplings: AS '+(c.attentionSignal||0)+' · SC '+(c.signalCoherence||0)+' · CR '+(c.coherenceResonance||0)+' · OD '+(c.orientationDamping||0)+' · TM '+(c.traceMemory||0)+'</span>';
+  const r=state.resources||{}, c=state.coupling||{}, response=deriveResponse(state);
+  panel.innerHTML='<strong>Field Resources</strong><br>Attention: '+(r.attention||0)+' | Orientation: '+(r.orientation||0)+' | Signal: '+(r.signal||0)+'<br>Resonance: '+(r.resonance||0)+' | Witness: '+(r.witness||0)+' | Trace: '+(r.trace||0)+'<br><span style="opacity:.72">Couplings: AS '+(c.attentionSignal||0)+' · SC '+(c.signalCoherence||0)+' · CR '+(c.coherenceResonance||0)+' · OD '+(c.orientationDamping||0)+' · TM '+(c.traceMemory||0)+'</span><br><span style="opacity:.72">Response: '+response.mode+' · tension '+response.tension+' · readiness '+response.readiness+' · pressure '+response.pressure+' · stability '+response.stability+'</span>';
 }
 
 function setGauge(id,value,max){ const text=document.getElementById(id); if(text) text.textContent=String(value||0); const gauge=text && text.closest('.gauge'); const fill=gauge && gauge.querySelector('.gauge-fill'); if(fill) fill.style.setProperty('--value', pct(value,max)+'%'); }

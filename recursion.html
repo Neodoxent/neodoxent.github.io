@@ -1,3 +1,1300 @@
 <!DOCTYPE html>
-<!-- Meta-Landing Console v1 uploaded -->
-<!-- NOTE: Full file content created in ChatGPT canvas should be pasted here manually if truncation occurs -->
+<html lang="en">
+<head>
+  <!-- ==================================================
+       META-LANDING / RECURSION.HTML
+       --------------------------------------------------
+       Role: Recurring control chamber after Landing,
+       Threshold, and Starfold.
+
+       Function:
+       - Acts as the user’s recurring entry point.
+       - Provides a cognitive instrument, not a game.
+       - Hosts symbolic gauges, panels, cards, glyph previews,
+         Zephyr traversal, Atlas maps, and deferred Drunemeton access.
+
+       Design Doctrine:
+       - Galaxy-Class / Supra-Doctorate / In Continuum.
+       - Fractal, harmonic, modular, recursive.
+       - Field semantics inherited from Starfold.
+       - Regalia summoned, but disciplined by function.
+
+       Implementation Standard:
+       - Static GitHub Pages compatible.
+       - No backend required.
+       - Vanilla HTML/CSS/JS only.
+       - All major sections commented for maintainability.
+       ================================================== -->
+
+  <!-- Basic document metadata. -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Page title shown in browser tab. -->
+  <title>Meta-Landing Console</title>
+
+  <!-- Semantic metadata for future tooling, indexing, or automated parsing. -->
+  <meta name="neodoxent-node" content="meta-landing" />
+  <meta name="neodoxent-role" content="recurring-control-surface" />
+  <meta name="neodoxent-system" content="Infotech Interface Layer" />
+  <meta name="neodoxent-version" content="0.1" />
+
+  <style>
+    /* ==================================================
+       ROOT FIELD VARIABLES
+       --------------------------------------------------
+       These variables establish the visual doctrine.
+       Adjust these first if tuning the whole page.
+       ================================================== */
+    :root {
+      /* Black Field: containment, silence, non-interference. */
+      --field-black: #0f0f11;
+
+      /* Deep Void: page background depth layer. */
+      --void-black: #090b0d;
+
+      /* Brine Field: semantic suspension, density, held meaning. */
+      --field-brine: #4c3f36;
+
+      /* Brine Dark: subdued panel variation. */
+      --brine-dark: #2a241f;
+
+      /* Manuscript Cream: readable witness layer. */
+      --field-cream: #fdf6ec;
+
+      /* Pearl: soft interface text. */
+      --pearl: #e7e1d6;
+
+      /* Muted text: secondary orientation data. */
+      --muted: #9c958b;
+
+      /* Oxidized Green: inherited public accent from homepage/threshold. */
+      --oxidized-green: #6a8f8a;
+
+      /* Oxidized Gold: navigation, coherence, seal. */
+      --gold-brine: #b2905e;
+
+      /* Authority Gold: directive emphasis, axis marking. */
+      --gold-authority: #c2a15a;
+
+      /* Umber: grounded human legibility. */
+      --umber: #6b5842;
+
+      /* Soft danger: warnings without alarmism. */
+      --warning-soft: #d1a66a;
+
+      /* Panel line: subdued structural border. */
+      --line: rgba(255, 255, 255, 0.08);
+
+      /* Panel surface: translucent dark card background. */
+      --surface: rgba(255, 255, 255, 0.035);
+
+      /* Panel surface brighter: hover / active state. */
+      --surface-strong: rgba(255, 255, 255, 0.06);
+
+      /* Shadow: page depth. */
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+
+      /* Typography stack: system-first, stable across GitHub Pages. */
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --serif: Georgia, "Times New Roman", serif;
+    }
+
+    /* ==================================================
+       GLOBAL RESET / CANVAS
+       --------------------------------------------------
+       Keeps the page stable and removes browser defaults.
+       ================================================== */
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--void-black);
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--pearl);
+      font-family: var(--sans);
+      background:
+        radial-gradient(ellipse at top, rgba(178, 144, 94, 0.12), transparent 38%),
+        radial-gradient(ellipse at bottom, rgba(106, 143, 138, 0.12), transparent 42%),
+        linear-gradient(180deg, var(--field-black), var(--void-black));
+      overflow-x: hidden;
+    }
+
+    /* Global aura field behind all content. */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 25% 15%, rgba(194, 161, 90, 0.10), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(106, 143, 138, 0.09), transparent 28%);
+      filter: blur(18px);
+      opacity: 0.85;
+      z-index: 0;
+    }
+
+    /* Main page wrapper keeps content above aura field. */
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 5rem;
+    }
+
+    /* ==================================================
+       TYPE SYSTEM
+       --------------------------------------------------
+       Small-caps metadata, serif ceremonial headers,
+       normal readable body text.
+       ================================================== */
+    h1, h2, h3, h4, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.1rem, 5vw, 4.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      color: var(--field-cream);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+      color: var(--field-cream);
+      margin-bottom: 0.8rem;
+    }
+
+    h3 {
+      font-size: 0.78rem;
+      line-height: 1.2;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--gold-brine);
+      margin-bottom: 0.8rem;
+    }
+
+    p {
+      line-height: 1.65;
+      color: rgba(231, 225, 214, 0.86);
+    }
+
+    a {
+      color: var(--gold-brine);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--gold-authority);
+      text-decoration: underline;
+    }
+
+    /* Utility class for muted explanatory copy. */
+    .muted {
+      color: var(--muted);
+    }
+
+    /* Utility class for small metadata labels. */
+    .micro {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(231, 225, 214, 0.48);
+    }
+
+    /* ==================================================
+       TOP COMMAND BAR
+       --------------------------------------------------
+       Persistent orientation strip at top of page.
+       ================================================== */
+    .command-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 2.2rem;
+    }
+
+    .command-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-width: 0;
+    }
+
+    .command-sigil {
+      width: 1.8rem;
+      height: 1.8rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(194, 161, 90, 0.35);
+      border-radius: 50%;
+      color: var(--gold-authority);
+      background: rgba(194, 161, 90, 0.05);
+      flex: 0 0 auto;
+    }
+
+    .command-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .command-links a,
+    .command-links button {
+      border: 0;
+      background: none;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .command-links a:hover,
+    .command-links button:hover {
+      color: var(--gold-authority);
+      text-decoration: none;
+    }
+
+    /* ==================================================
+       HERO / META-LANDING DECLARATION
+       --------------------------------------------------
+       Names the page as recurring control chamber.
+       ================================================== */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+      gap: 2rem;
+      align-items: end;
+      margin-bottom: 2rem;
+    }
+
+    .hero-kicker {
+      color: var(--gold-brine);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      font-size: 1rem;
+    }
+
+    .hero-status {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1rem;
+      background: linear-gradient(180deg, var(--surface-strong), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .status-chip {
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 0.75rem;
+      background: rgba(0,0,0,0.16);
+    }
+
+    .status-chip .k {
+      display: block;
+      margin-bottom: 0.35rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: rgba(231, 225, 214, 0.50);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .status-chip .v {
+      font-size: 0.9rem;
+      color: var(--field-cream);
+    }
+
+    /* ==================================================
+       WELCOME PANEL
+       --------------------------------------------------
+       Lightweight acknowledgement specific to Meta-Landing.
+       This does NOT replace the Threshold page.
+       It is dismissible for returning users.
+       ================================================== */
+    .welcome-panel {
+      border: 1px solid rgba(194, 161, 90, 0.22);
+      border-left: 4px solid var(--gold-authority);
+      border-radius: 18px;
+      padding: 1.25rem;
+      margin: 0 0 2rem;
+      background:
+        linear-gradient(90deg, rgba(194,161,90,0.10), rgba(255,255,255,0.03)),
+        rgba(0,0,0,0.18);
+      box-shadow: var(--shadow);
+    }
+
+    .welcome-panel[hidden] {
+      display: none;
+    }
+
+    .welcome-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    /* Shared button styling for interface actions. */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.35rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(194, 161, 90, 0.32);
+      background: rgba(194, 161, 90, 0.08);
+      color: var(--field-cream);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      border-color: rgba(194, 161, 90, 0.58);
+      background: rgba(194, 161, 90, 0.14);
+      text-decoration: none;
+    }
+
+    .btn.secondary {
+      border-color: rgba(106, 143, 138, 0.32);
+      background: rgba(106, 143, 138, 0.08);
+      color: rgba(231, 225, 214, 0.82);
+    }
+
+    /* ==================================================
+       MASTER CONSOLE GRID
+       --------------------------------------------------
+       Main cognitive instrument layout.
+       Left: gauges and state.
+       Center: active path panels.
+       Right: Zephyr / deferred domains.
+       ================================================== */
+    .console-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.35fr 0.95fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    /* General panel styling. */
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 1rem;
+      background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0.018));
+      box-shadow: 0 18px 70px rgba(0,0,0,0.24);
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle top glint for high-class interface depth. */
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(194,161,90,0.35), transparent);
+      opacity: 0.65;
+    }
+
+    .panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Panel status badges: available, locked, deferred. */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.28rem 0.48rem;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.08);
+      color: rgba(231,225,214,0.68);
+      background: rgba(0,0,0,0.18);
+      margin-bottom: 0.85rem;
+    }
+
+    .badge.available {
+      color: #cfe6d6;
+      border-color: rgba(143, 209, 158, 0.25);
+    }
+
+    .badge.deferred {
+      color: #d8c49b;
+      border-color: rgba(194, 161, 90, 0.25);
+    }
+
+    .badge.locked {
+      color: #c9b7b7;
+      border-color: rgba(209, 143, 143, 0.22);
+    }
+
+    /* ==================================================
+       SYMBOLIC GAUGES
+       --------------------------------------------------
+       These are not empirical measurements.
+       They are symbolic interface states.
+       ================================================== */
+    .gauge-list {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .gauge {
+      padding: 0.85rem;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .gauge-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+      align-items: baseline;
+      margin-bottom: 0.55rem;
+    }
+
+    .gauge-name {
+      font-size: 0.78rem;
+      color: var(--field-cream);
+    }
+
+    .gauge-state {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--gold-brine);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: right;
+    }
+
+    .gauge-track {
+      height: 0.42rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .gauge-fill {
+      height: 100%;
+      width: var(--value, 50%);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--oxidized-green), var(--gold-brine));
+    }
+
+    /* ==================================================
+       PATH PANELS
+       --------------------------------------------------
+       Cards represent modules, not mere links.
+       ================================================== */
+    .path-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .path-card {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.18);
+    }
+
+    .path-card:hover {
+      border-color: rgba(194,161,90,0.28);
+      background: rgba(255,255,255,0.045);
+    }
+
+    .path-card h4 {
+      margin: 0 0 0.45rem;
+      color: var(--field-cream);
+      font-family: var(--serif);
+      font-size: 1.12rem;
+    }
+
+    .path-card p {
+      margin: 0;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: rgba(231,225,214,0.75);
+    }
+
+    .path-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.6rem;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(231,225,214,0.45);
+    }
+
+    /* ==================================================
+       ZEPHYR STRIP
+       --------------------------------------------------
+       Lightweight traversal mode for returning users.
+       ================================================== */
+    .zephyr-list {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .zephyr-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.72rem 0.8rem;
+      border-radius: 14px;
+      background: rgba(106,143,138,0.07);
+      border: 1px solid rgba(106,143,138,0.14);
+      color: rgba(231,225,214,0.86);
+    }
+
+    .zephyr-link:hover {
+      text-decoration: none;
+      border-color: rgba(106,143,138,0.34);
+      background: rgba(106,143,138,0.12);
+    }
+
+    .zephyr-link span:last-child {
+      color: var(--oxidized-green);
+    }
+
+    /* ==================================================
+       CARD / GLYPH PREVIEW ROW
+       --------------------------------------------------
+       First visual grammar of semiotic system.
+       ================================================== */
+    .artifact-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.85rem;
+    }
+
+    .artifact-tile {
+      aspect-ratio: 0.78;
+      border-radius: 16px;
+      border: 1px solid rgba(194,161,90,0.18);
+      background:
+        radial-gradient(circle at top, rgba(194,161,90,0.13), transparent 48%),
+        rgba(0,0,0,0.20);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0.7rem;
+    }
+
+    .artifact-symbol {
+      display: block;
+      font-size: 1.65rem;
+      color: var(--gold-authority);
+      margin-bottom: 0.4rem;
+    }
+
+    .artifact-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(231,225,214,0.58);
+    }
+
+    /* ==================================================
+       CALLOUTS AND ADMONITIONS
+       --------------------------------------------------
+       Separate visual systems:
+       - Callouts: orientation and notes.
+       - Admonitions: stronger structural cautions.
+       ================================================== */
+    .callout {
+      border-left: 3px solid var(--oxidized-green);
+      padding: 0.75rem 0.9rem;
+      border-radius: 12px;
+      background: rgba(106,143,138,0.07);
+      margin: 1rem 0;
+    }
+
+    .callout-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--oxidized-green);
+      margin-bottom: 0.45rem;
+    }
+
+    .admonition {
+      border: 1px solid rgba(194,161,90,0.22);
+      border-left: 4px solid var(--warning-soft);
+      border-radius: 14px;
+      padding: 0.85rem 0.95rem;
+      background: rgba(194,161,90,0.07);
+      margin-top: 1rem;
+    }
+
+    .admonition-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warning-soft);
+      margin-bottom: 0.45rem;
+    }
+
+    /* ==================================================
+       MERMAID SOURCE BLOCK
+       --------------------------------------------------
+       GitHub Pages will not render Mermaid automatically
+       unless a Mermaid runtime is added later.
+       For v1, this block displays valid Mermaid source.
+       ================================================== */
+    pre.map-source {
+      white-space: pre-wrap;
+      overflow-x: auto;
+      padding: 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(0,0,0,0.25);
+      color: rgba(231,225,214,0.78);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      line-height: 1.5;
+    }
+
+    /* ==================================================
+       FOOTER
+       --------------------------------------------------
+       Quiet exit and reset controls.
+       ================================================== */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      color: rgba(231,225,214,0.45);
+    }
+
+    /* ==================================================
+       RESPONSIVE LAYOUT
+       --------------------------------------------------
+       The console collapses cleanly on tablets and phones.
+       ================================================== */
+    @media (max-width: 980px) {
+      .hero,
+      .console-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .path-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page-shell {
+        width: min(100% - 1rem, 1180px);
+        padding-top: 1rem;
+      }
+
+      .command-bar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .command-links {
+        justify-content: flex-start;
+      }
+
+      .status-grid,
+      .artifact-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ==================================================
+       PAGE SHELL
+       --------------------------------------------------
+       All visible page content lives inside this wrapper.
+       ================================================== -->
+  <div class="page-shell">
+
+    <!-- ==================================================
+         TOP COMMAND BAR
+         --------------------------------------------------
+         Persistent minimal navigation and state controls.
+         ================================================== -->
+    <header class="command-bar" aria-label="Meta-Landing command bar">
+      <div class="command-mark">
+        <!-- Circular sigil mark; text-based for now, image can replace later. -->
+        <div class="command-sigil" aria-hidden="true">✦</div>
+        <div>
+          <div class="micro">Neodoxent · Infotech Interface Layer</div>
+          <div class="muted">Meta-Landing Console</div>
+        </div>
+      </div>
+
+      <nav class="command-links" aria-label="Primary navigation">
+        <a href="/">Landing</a>
+        <a href="threshold.html">Threshold</a>
+        <a href="starfold.html">Starfold</a>
+        <button type="button" id="reset-state">Reset State</button>
+      </nav>
+    </header>
+
+    <!-- ==================================================
+         HERO DECLARATION
+         --------------------------------------------------
+         This names what the page is and what it is not.
+         ================================================== -->
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <div class="hero-kicker">Recurring Control Surface · Cognitive Instrument</div>
+        <h1 id="page-title">Meta-Landing Console</h1>
+        <p class="hero-copy">
+          This page is the recurring interface into the system. It is not a game. It is a cognitive instrument: a structured surface for orientation, symbolic literacy, recursive navigation, and careful encounter with a larger body of work.
+        </p>
+      </div>
+
+      <!-- Status card gives returning users immediate orientation. -->
+      <aside class="hero-status" aria-label="Current system status">
+        <h3>System State</h3>
+        <div class="status-grid">
+          <div class="status-chip">
+            <span class="k">Mode</span>
+            <span class="v" id="state-mode">Recurring</span>
+          </div>
+          <div class="status-chip">
+            <span class="k">Access</span>
+            <span class="v" id="state-access">Oriented</span>
+          </div>
+          <div class="status-chip">
+            <span class="k">Zephyr</span>
+            <span class="v" id="state-zephyr">Available</span>
+          </div>
+          <div class="status-chip">
+            <span class="k">Drunemeton</span>
+            <span class="v" id="state-drunemeton">Deferred</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ==================================================
+         WELCOME / LIGHT ACKNOWLEDGMENT PANEL
+         --------------------------------------------------
+         Dismissible. Stored in localStorage.
+         This keeps the Meta-Landing from repeating the full Threshold.
+         ================================================== -->
+    <section class="welcome-panel" id="welcome-panel" aria-labelledby="welcome-title">
+      <span class="badge available">Acknowledgment Layer</span>
+      <h2 id="welcome-title">Welcome to the Meta-Landing</h2>
+      <p>
+        This interface uses cards, glyphs, maps, panels, gauges, and symbolic traversal to introduce a larger conceptual and artistic system. It may behave like an incremental interface, but it is not entertainment, therapy, diagnosis, instruction, or proof.
+      </p>
+      <p>
+        Proceed slowly. Let orientation precede interpretation. You may explore, return, review the Threshold, or disengage at any time.
+      </p>
+
+      <div class="welcome-actions">
+        <button class="btn" type="button" id="dismiss-welcome">Continue</button>
+        <a class="btn secondary" href="threshold.html">Review Threshold</a>
+        <a class="btn secondary" href="/">Exit</a>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         MASTER CONSOLE
+         --------------------------------------------------
+         Three-column cognitive interface.
+         ================================================== -->
+    <main class="console-grid" aria-label="Master console">
+
+      <!-- ================================================
+           LEFT COLUMN: GAUGES / WARNINGS / STATE
+           ================================================ -->
+      <section aria-label="Symbolic gauges and notices">
+
+        <!-- Symbolic gauges panel. -->
+        <article class="panel">
+          <span class="badge available">Meta-Gauges</span>
+          <h3>Symbolic Readout</h3>
+          <p class="muted">
+            These gauges are symbolic interface states. They are not measurements, diagnostics, or empirical claims.
+          </p>
+
+          <div class="gauge-list">
+            <div class="gauge">
+              <div class="gauge-head">
+                <span class="gauge-name">Clarity</span>
+                <span class="gauge-state">Stable</span>
+              </div>
+              <div class="gauge-track"><div class="gauge-fill" style="--value: 72%"></div></div>
+            </div>
+
+            <div class="gauge">
+              <div class="gauge-head">
+                <span class="gauge-name">Cognitive Load</span>
+                <span class="gauge-state">Moderate</span>
+              </div>
+              <div class="gauge-track"><div class="gauge-fill" style="--value: 46%"></div></div>
+            </div>
+
+            <div class="gauge">
+              <div class="gauge-head">
+                <span class="gauge-name">Recursion</span>
+                <span class="gauge-state">Available</span>
+              </div>
+              <div class="gauge-track"><div class="gauge-fill" style="--value: 58%"></div></div>
+            </div>
+
+            <div class="gauge">
+              <div class="gauge-head">
+                <span class="gauge-name">Witness</span>
+                <span class="gauge-state">Active</span>
+              </div>
+              <div class="gauge-track"><div class="gauge-fill" style="--value: 64%"></div></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Lightweight warning suite. -->
+        <article class="panel">
+          <span class="badge deferred">Light Warning Suite</span>
+          <h3>Instrument Notice</h3>
+
+          <div class="callout">
+            <div class="callout-title">Callout · Orientation</div>
+            <p>
+              The Meta-Landing is a recurring control chamber. It provides access to paths, maps, artifacts, and deferred domains without forcing repeated re-entry through the full Threshold.
+            </p>
+          </div>
+
+          <div class="admonition">
+            <div class="admonition-title">Admonition · Cognitive Instrument</div>
+            <p>
+              This is not a game, therapy, diagnosis, instruction, or authoritative model. Engagement is interpretive and self-directed.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================================================
+           CENTER COLUMN: MASTER PATHS / CARDS / GLYPHS
+           ================================================ -->
+      <section aria-label="Primary interface paths">
+
+        <!-- Main path panel. -->
+        <article class="panel">
+          <span class="badge available">Master Console</span>
+          <h3>Available Paths</h3>
+          <p>
+            The system expands by terraces, not by sudden exposure. Each path introduces one kind of literacy before deeper architecture becomes available.
+          </p>
+
+          <div class="path-grid">
+            <a class="path-card" href="#zephyr">
+              <div>
+                <h4>Zephyr Protocol</h4>
+                <p>Light traversal for returning users. Fast movement without interpretive overload.</p>
+              </div>
+              <div class="path-meta"><span>Available</span><span>Wind</span></div>
+            </a>
+
+            <a class="path-card" href="#cards">
+              <div>
+                <h4>Card Interface</h4>
+                <p>Semiotic units that introduce states, thresholds, concepts, and relations.</p>
+              </div>
+              <div class="path-meta"><span>Preview</span><span>Manifest</span></div>
+            </a>
+
+            <a class="path-card" href="#glyphs">
+              <div>
+                <h4>Glyph Interface</h4>
+                <p>Functional symbols for stabilization, structure, invocation, and cartography.</p>
+              </div>
+              <div class="path-meta"><span>Preview</span><span>Operator</span></div>
+            </a>
+
+            <a class="path-card" href="#atlas">
+              <div>
+                <h4>Atlas Layer</h4>
+                <p>Maps, diagrams, and structural relations for navigating the larger system.</p>
+              </div>
+              <div class="path-meta"><span>Deferred</span><span>Map</span></div>
+            </a>
+          </div>
+        </article>
+
+        <!-- Cards panel. -->
+        <article class="panel" id="cards">
+          <span class="badge available">Card System · Preview</span>
+          <h3>Cards as Semiotic Manifest</h3>
+          <p>
+            Cards are not collectibles in the trivial sense. They are compact expressions of concepts, states, thresholds, and interface roles.
+          </p>
+
+          <div class="artifact-row">
+            <div class="artifact-tile">
+              <span>
+                <span class="artifact-symbol">★</span>
+                <span class="artifact-label">Starfold</span>
+              </span>
+            </div>
+            <div class="artifact-tile">
+              <span>
+                <span class="artifact-symbol">△</span>
+                <span class="artifact-label">Alignment</span>
+              </span>
+            </div>
+            <div class="artifact-tile">
+              <span>
+                <span class="artifact-symbol">◉</span>
+                <span class="artifact-label">Witness</span>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Glyphs panel. -->
+        <article class="panel" id="glyphs">
+          <span class="badge available">Glyph System · Preview</span>
+          <h3>Glyphs as Functional Operators</h3>
+          <p>
+            Glyphs are living symbolic operators. Their purpose is not decoration, but orientation, stabilization, invocation, structure, and map-making.
+          </p>
+
+          <div class="artifact-row">
+            <div class="artifact-tile">
+              <span>
+                <span class="artifact-symbol">⌷</span>
+                <span class="artifact-label">Field</span>
+              </span>
+            </div>
+            <div class="artifact-tile">
+              <span>
+                <span class="artifact-symbol">⟡</span>
+                <span class="artifact-label">Vector</span>
+              </span>
+            </div>
+            <div class="artifact-tile">
+              <span>
+                <span class="artifact-symbol">∇</span>
+                <span class="artifact-label">Descent</span>
+              </span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================================================
+           RIGHT COLUMN: ZEPHYR / DRUNEMETON / MAPS
+           ================================================ -->
+      <section aria-label="Traversal and deferred domains">
+
+        <!-- Zephyr panel. -->
+        <article class="panel" id="zephyr">
+          <span class="badge available">Zephyr Protocol</span>
+          <h3>Light Traversal</h3>
+          <p class="muted">
+            Zephyr is the low-friction navigation layer: fast, quiet, returning-user friendly.
+          </p>
+
+          <div class="zephyr-list">
+            <a class="zephyr-link" href="#cards"><span>Resume at Cards</span><span>→</span></a>
+            <a class="zephyr-link" href="#glyphs"><span>Resume at Glyphs</span><span>→</span></a>
+            <a class="zephyr-link" href="#atlas"><span>Open Atlas</span><span>→</span></a>
+            <a class="zephyr-link" href="starfold.html"><span>Restabilize</span><span>↺</span></a>
+          </div>
+        </article>
+
+        <!-- Drunemeton deferred gate. -->
+        <article class="panel">
+          <span class="badge deferred">Drunemeton Protocol</span>
+          <h3>Outer Gate</h3>
+          <p>
+            The Cathedral is not entered from the first terrace. It requires literacy, preparation, mapping, and interpretive responsibility.
+          </p>
+          <p class="muted">
+            Current State: Outer Gate visible. Cathedral deferred.
+          </p>
+        </article>
+
+        <!-- Hidden instruments panel. -->
+        <article class="panel">
+          <span class="badge locked">Reserved Instruments</span>
+          <h3>Unrevealed Apparatus</h3>
+          <p>
+            Certain instruments remain hidden until the surrounding architecture can hold them without distortion.
+          </p>
+          <p class="muted">
+            No further disclosure is made here.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <!-- ==================================================
+         ATLAS / MERMAID MAP SECTION
+         --------------------------------------------------
+         For v1, this displays Mermaid source.
+         Later, add Mermaid.js to render diagrams live.
+         ================================================== -->
+    <section class="panel" id="atlas" aria-labelledby="atlas-title">
+      <span class="badge deferred">Atlas Layer</span>
+      <h2 id="atlas-title">Progression Terraces Map</h2>
+      <p>
+        This map shows the terraced architecture. It prevents the system from jumping directly from glyph literacy into cathedral-grade depth.
+      </p>
+
+      <pre class="map-source"><code>flowchart TD
+    A[Landing] --> B[Threshold]
+    B --> C[Starfold Stabilization]
+    C --> D[Meta-Landing Console]
+
+    D --> E[Welcome Chamber]
+    D --> F[Zephyr Protocol]
+    D --> G[Card Interface]
+    D --> H[Glyph Interface]
+    D --> I[Atlas Layer]
+
+    I --> J[Archive Layer]
+    I --> K[Framework Layer]
+    K --> L[Drunemeton Outer Gate]
+    L --> M[Drunemeton Cathedral]
+
+    M -. deferred .-> N[Hidden Instruments]</code></pre>
+    </section>
+
+    <!-- ==================================================
+         FOOTER
+         --------------------------------------------------
+         Quiet exit, authorship, and state reset reminder.
+         ================================================== -->
+    <footer>
+      <div class="micro">Meta-Landing · Infotech Interface Layer · v0.1</div>
+      <div class="micro">Form to Function · Aesthetic to Consequence</div>
+    </footer>
+  </div>
+
+  <script>
+    /* ==================================================
+       META-LANDING STATE SCRIPT
+       --------------------------------------------------
+       Purpose:
+       - Stores lightweight interface state in localStorage.
+       - Dismisses welcome panel for returning users.
+       - Marks this node as visited.
+       - Supports future modular expansion.
+
+       Important:
+       - This is not authentication.
+       - This is not analytics.
+       - This records only local browser state.
+       ================================================== */
+
+    /* --------------------------------------------------
+       STORAGE KEYS
+       --------------------------------------------------
+       Centralized key names prevent typo bugs and make
+       future migrations easier.
+       -------------------------------------------------- */
+    const STORAGE_KEYS = {
+      threshold: "neodoxent.thresholdAcknowledged",
+      starfold: "neodoxent.starfoldAligned",
+      welcome: "neodoxent.metaLandingWelcomeDismissed",
+      lastVisited: "neodoxent.lastVisited",
+      visitedNodes: "neodoxent.visitedNodes"
+    };
+
+    /* --------------------------------------------------
+       SAFE LOCAL STORAGE HELPERS
+       --------------------------------------------------
+       These wrappers prevent the page from breaking if
+       localStorage is unavailable in unusual browser modes.
+       -------------------------------------------------- */
+    function safeGet(key) {
+      try {
+        return localStorage.getItem(key);
+      } catch (error) {
+        console.warn("localStorage unavailable:", error);
+        return null;
+      }
+    }
+
+    function safeSet(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (error) {
+        console.warn("localStorage unavailable:", error);
+      }
+    }
+
+    function safeRemove(key) {
+      try {
+        localStorage.removeItem(key);
+      } catch (error) {
+        console.warn("localStorage unavailable:", error);
+      }
+    }
+
+    /* --------------------------------------------------
+       VISITED NODE TRACKING
+       --------------------------------------------------
+       Tracks pages visited by symbolic node name.
+       This is the seed of the incremental interface.
+       -------------------------------------------------- */
+    function markVisited(nodeName) {
+      const raw = safeGet(STORAGE_KEYS.visitedNodes);
+      let nodes = [];
+
+      try {
+        nodes = raw ? JSON.parse(raw) : [];
+      } catch (error) {
+        nodes = [];
+      }
+
+      if (!nodes.includes(nodeName)) {
+        nodes.push(nodeName);
+      }
+
+      safeSet(STORAGE_KEYS.visitedNodes, JSON.stringify(nodes));
+      safeSet(STORAGE_KEYS.lastVisited, nodeName);
+    }
+
+    /* --------------------------------------------------
+       WELCOME PANEL CONTROL
+       --------------------------------------------------
+       Shows the welcome panel until the visitor dismisses it.
+       This prevents repeated warnings while preserving access.
+       -------------------------------------------------- */
+    function initializeWelcomePanel() {
+      const panel = document.getElementById("welcome-panel");
+      const dismissButton = document.getElementById("dismiss-welcome");
+
+      if (!panel || !dismissButton) return;
+
+      const dismissed = safeGet(STORAGE_KEYS.welcome) === "true";
+
+      if (dismissed) {
+        panel.hidden = true;
+      }
+
+      dismissButton.addEventListener("click", () => {
+        safeSet(STORAGE_KEYS.welcome, "true");
+        panel.hidden = true;
+      });
+    }
+
+    /* --------------------------------------------------
+       STATE RESET CONTROL
+       --------------------------------------------------
+       Used during development and testing.
+       Keeps reset local to this interface’s keys.
+       -------------------------------------------------- */
+    function initializeResetControl() {
+      const resetButton = document.getElementById("reset-state");
+      if (!resetButton) return;
+
+      resetButton.addEventListener("click", () => {
+        Object.values(STORAGE_KEYS).forEach(safeRemove);
+        window.location.reload();
+      });
+    }
+
+    /* --------------------------------------------------
+       STATE READOUT HYDRATION
+       --------------------------------------------------
+       Updates visible status chips based on local state.
+       Future versions can make this more sophisticated.
+       -------------------------------------------------- */
+    function hydrateStateReadout() {
+      const thresholdAcknowledged = safeGet(STORAGE_KEYS.threshold) === "true";
+      const starfoldAligned = safeGet(STORAGE_KEYS.starfold) === "true";
+
+      const accessEl = document.getElementById("state-access");
+      const modeEl = document.getElementById("state-mode");
+
+      if (accessEl) {
+        accessEl.textContent = thresholdAcknowledged && starfoldAligned
+          ? "Aligned"
+          : "Oriented";
+      }
+
+      if (modeEl) {
+        modeEl.textContent = "Recurring";
+      }
+    }
+
+    /* --------------------------------------------------
+       BOOT SEQUENCE
+       --------------------------------------------------
+       Runs after DOM is parsed because this script is at
+       the end of the body.
+       -------------------------------------------------- */
+    markVisited("meta-landing");
+    initializeWelcomePanel();
+    initializeResetControl();
+    hydrateStateReadout();
+  </script>
+</body>
+</html>

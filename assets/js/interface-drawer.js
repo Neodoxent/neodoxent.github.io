@@ -36,7 +36,6 @@
   };
 
   function $(q){return document.querySelector(q)}
-  function $all(q){return Array.from(document.querySelectorAll(q))}
   function getJson(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch(e){return f}}
   function setJson(k,v){localStorage.setItem(k,JSON.stringify(v))}
 
@@ -63,13 +62,11 @@
       .drawer-button.active{border-color:rgba(194,161,90,.55);color:${SEM.gold};background:rgba(194,161,90,.08)}
       .drawer-link{display:block;color:${SEM.pearl};text-decoration:none;border-left:3px solid rgba(194,161,90,.35);padding:.35rem .6rem;margin:.25rem 0;background:rgba(255,255,255,.025);border-radius:0 8px 8px 0;}
       .drawer-link:hover{color:${SEM.gold};background:rgba(194,161,90,.07)}
-      .drawer-warning{font-size:.82rem;color:rgba(231,225,214,.82);padding:.35rem .4rem;border-left:3px solid rgba(209,166,106,.65);margin:.25rem 0;background:rgba(209,166,106,.05);}
       body.view-reading .console-grid{grid-template-columns:minmax(0,.72fr) minmax(0,1.72fr)!important;}
       body.view-reading .console-grid > section:nth-child(3){display:none!important;}
       body.view-reading .module{padding:1.15rem 1.25rem;}
       body.view-compact .callout,body.view-compact .admonition,body.view-compact .progressive-warning{font-size:.86rem;}
       body.view-compact .module{padding:.85rem;}
-      body.focus-mode .module:not(.revealed):not(.deferred){opacity:.45;}
       body.focus-mode .module.accepted{opacity:.55;}
       body.focus-mode .module:not(.accepted):not(.hidden){box-shadow:0 0 0 1px rgba(194,161,90,.2),0 22px 80px rgba(0,0,0,.36);}
       .panel-hidden-by-drawer{display:none!important;}
@@ -80,7 +77,7 @@
 
   function ensureDrawer(){
     injectStyle();
-    let directive=$('#field-directive');
+    const directive=$('#field-directive');
     if(directive&&!$('#interface-menu-button')){
       directive.style.pointerEvents='auto';
       directive.style.position='fixed';
@@ -110,6 +107,7 @@
     setJson(DRAWER_KEY,!!open);
     $('#interface-drawer')?.classList.toggle('open',!!open);
     $('#interface-drawer-backdrop')?.classList.toggle('open',!!open);
+    if(open)renderDrawer();
   }
 
   function toggleDrawer(){setDrawer(!$('#interface-drawer')?.classList.contains('open'))}
@@ -171,31 +169,11 @@
           </div>
           <button class="drawer-close" type="button" aria-label="Close drawer">×</button>
         </div>
-
-        <section class="drawer-section">
-          <h4>View Mode</h4>
-          ${['console','reading','compact'].map(v=>`<button class="drawer-button ${mode===v?'active':''}" data-view="${v}">${v.charAt(0).toUpperCase()+v.slice(1)} Mode</button>`).join('')}
-        </section>
-
-        <section class="drawer-section">
-          <h4>Panel Visibility</h4>
-          ${Object.entries(PANEL_LABELS).map(([key,label])=>`<div class="drawer-row"><span>${label}</span><input type="checkbox" data-panel="${key}" ${panels[key]===false?'':'checked'} /></div>`).join('')}
-        </section>
-
-        <section class="drawer-section">
-          <h4>Focus</h4>
-          <div class="drawer-row"><span>Focus current chamber</span><input type="checkbox" data-focus="1" ${getJson(FOCUS_KEY,false)?'checked':''}/></div>
-        </section>
-
-        <section class="drawer-section">
-          <h4>Warnings Index</h4>
-          ${Object.keys(warnings).length?Object.keys(warnings).map(id=>`<a class="drawer-link" href="#${id}">${WARNING_TITLES[id]||id}</a>`).join(''):'<div style="opacity:.62;font-size:.84rem">No progressive warnings surfaced yet.</div>'}
-        </section>
-
-        <section class="drawer-section">
-          <h4>Return Map</h4>
-          ${visibleModules.map(m=>`<a class="drawer-link" href="#${m.id}">${m.title||m.id}</a>`).join('')||'<div style="opacity:.62;font-size:.84rem">No returnable chambers yet.</div>'}
-        </section>
+        <section class="drawer-section"><h4>View Mode</h4>${['console','reading','compact'].map(v=>`<button class="drawer-button ${mode===v?'active':''}" data-view="${v}">${v.charAt(0).toUpperCase()+v.slice(1)} Mode</button>`).join('')}</section>
+        <section class="drawer-section"><h4>Panel Visibility</h4>${Object.entries(PANEL_LABELS).map(([key,label])=>`<div class="drawer-row"><span>${label}</span><input type="checkbox" data-panel="${key}" ${panels[key]===false?'':'checked'} /></div>`).join('')}</section>
+        <section class="drawer-section"><h4>Focus</h4><div class="drawer-row"><span>Focus current chamber</span><input type="checkbox" data-focus="1" ${getJson(FOCUS_KEY,false)?'checked':''}/></div></section>
+        <section class="drawer-section"><h4>Warnings Index</h4>${Object.keys(warnings).length?Object.keys(warnings).map(id=>`<a class="drawer-link" href="#${id}">${WARNING_TITLES[id]||id}</a>`).join(''):'<div style="opacity:.62;font-size:.84rem">No progressive warnings surfaced yet.</div>'}</section>
+        <section class="drawer-section"><h4>Return Map</h4>${visibleModules.map(m=>`<a class="drawer-link" href="#${m.id}">${m.title||m.id}</a>`).join('')||'<div style="opacity:.62;font-size:.84rem">No returnable chambers yet.</div>'}</section>
       </div>`;
 
     drawer.querySelector('.drawer-close')?.addEventListener('click',()=>setDrawer(false));
@@ -211,7 +189,8 @@
     applyPanelVisibility();
     renderDrawer();
     setDrawer(getJson(DRAWER_KEY,false));
-    setInterval(()=>{ensureDrawer();applyViewMode();applyPanelVisibility();renderDrawer();},1500);
+    window.addEventListener('resize',()=>{applyViewMode();applyPanelVisibility();});
+    window.addEventListener('neodoxent:tick',()=>{if($('#interface-drawer')?.classList.contains('open'))renderDrawer();});
   }
 
   document.addEventListener('DOMContentLoaded',boot);

@@ -4,8 +4,8 @@
    Defines module sequence, unlock requirements, grants,
    field resources, and nested chamber segments.
 
-   This stable version restores the pre-modular progression
-   while keeping Zephyr chamber resources, dwell, and segments.
+   Stable recovery rule:
+   Every requirement must have a clear upstream source.
    ================================================== */
 
 window.NEODOXENT_MODULES = [
@@ -32,30 +32,10 @@ window.NEODOXENT_MODULES = [
       resources: { attention: 2, orientation: 2, witness: 1, resonance: 1 }
     },
     segments: [
-      {
-        id: "notice",
-        title: "Notice",
-        text: "Zephyr is not speed. It is light traversal with return preserved. It teaches the reader that movement must remain gentle enough for orientation to survive.",
-        grants: { resources: { orientation: 1 }, qbits: { cognitive: 1 } }
-      },
-      {
-        id: "principle",
-        title: "Traversal Principle",
-        text: "Move only as far as orientation can remain intact. A path that cannot be returned from is not traversal; it is drift.",
-        grants: { resources: { attention: 1, signal: 1 }, strata: { stabilization: 1 } }
-      },
-      {
-        id: "return",
-        title: "Return Principle",
-        text: "Every path must preserve a way back to the field. Return is not regression; it is how coherence is maintained across depth.",
-        grants: { resources: { witness: 1, orientation: 1 }, qbits: { architectural: 1 } }
-      },
-      {
-        id: "integration",
-        title: "Integration",
-        text: "Accept Zephyr only when its movement feels stable, not merely available. The interface should be entered with attention rather than appetite.",
-        grants: { resources: { attention: 1, resonance: 1 }, qbits: { poetic: 1 } }
-      }
+      { id: "notice", title: "Notice", text: "Zephyr is not speed. It is light traversal with return preserved. It teaches the reader that movement must remain gentle enough for orientation to survive.", grants: { resources: { orientation: 1 }, qbits: { cognitive: 1 } } },
+      { id: "principle", title: "Traversal Principle", text: "Move only as far as orientation can remain intact. A path that cannot be returned from is not traversal; it is drift.", grants: { resources: { attention: 1, signal: 1 }, strata: { stabilization: 1 } } },
+      { id: "return", title: "Return Principle", text: "Every path must preserve a way back to the field. Return is not regression; it is how coherence is maintained across depth.", grants: { resources: { witness: 1, orientation: 1 }, qbits: { architectural: 1 } } },
+      { id: "integration", title: "Integration", text: "Accept Zephyr only when its movement feels stable, not merely available. The interface should be entered with attention rather than appetite.", grants: { resources: { attention: 1, resonance: 1 }, qbits: { poetic: 1 } } }
     ],
     grants: {
       bits: 1,
@@ -69,11 +49,7 @@ window.NEODOXENT_MODULES = [
     id: "aperture",
     title: "Aperture Calibration",
     initialStatus: "hidden",
-    requires: {
-      accepted: ["zephyr"],
-      strata: { stabilization: 1 },
-      resources: { attention: 2, orientation: 2 }
-    },
+    requires: { accepted: ["zephyr"], strata: { stabilization: 1 }, resources: { attention: 2, orientation: 2 } },
     grants: {
       bits: 2,
       orientation: 1,
@@ -88,14 +64,10 @@ window.NEODOXENT_MODULES = [
     id: "cards",
     title: "Card Interface",
     initialStatus: "hidden",
-    requires: {
-      accepted: ["aperture"],
-      strata: { orientation: 2, stabilization: 1 },
-      resources: { attention: 2, signal: 1 },
-      coherence: 1
-    },
+    requires: { accepted: ["aperture"], strata: { orientation: 2, stabilization: 1 }, resources: { attention: 2, signal: 1 }, coherence: 1 },
     grants: {
       bits: 2,
+      coherence: 1,
       strata: { semiotic: 1 },
       qbits: { symbolic: 2, poetic: 1 },
       resources: { signal: 2, trace: 1 },
@@ -135,6 +107,7 @@ window.NEODOXENT_MODULES = [
     requires: { accepted: ["regalia"], strata: { regal: 1 }, entanglement: 2 },
     grants: {
       bits: 2,
+      coherence: 1,
       entanglement: 1,
       strata: { cartographic: 1 },
       qbits: { architectural: 2 },
@@ -162,6 +135,7 @@ window.NEODOXENT_MODULES = [
     requires: { accepted: ["complexity-primer"], coherence: 3, qbits: { architectural: 2 } },
     grants: {
       bits: 3,
+      coherence: 1,
       entanglement: 1,
       strata: { cybernetic: 1 },
       qbits: { cybernetic: 3 },
@@ -189,6 +163,7 @@ window.NEODOXENT_MODULES = [
     requires: { accepted: ["frameworks"], complexity: 35, coherence: 5, entanglement: 5, qbits: { cathedral: 1 } },
     grants: {
       bits: 4,
+      coherence: 2,
       strata: { cathedral: 1 },
       qbits: { cathedral: 3, regal: 1 },
       resources: { witness: 2 },

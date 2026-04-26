@@ -4,17 +4,43 @@
 const M = window.NEODOXENT_MODULES || [];
 const S = window.NEODOXENT_STATE;
 const LOG_KEY = 'neodoxent_field_log';
+const COLLAPSE_KEY = 'neodoxent_collapsed_modules';
 
-if(!S){
-  console.error('NEODOXENT_STATE missing.');
-  return;
-}
+if(!S){ console.error('NEODOXENT_STATE missing.'); return; }
 
 function el(q){ return document.querySelector(q); }
 function setText(id,value){ const node=document.getElementById(id); if(node) node.textContent=String(value); }
-function getLog(){ try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; } catch(e){ return []; } }
-function saveLog(log){ localStorage.setItem(LOG_KEY, JSON.stringify(log.slice(-160))); }
+function getJson(key,fallback){ try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch(e){ return fallback; } }
+function setJson(key,value){ localStorage.setItem(key, JSON.stringify(value)); }
+function getLog(){ return getJson(LOG_KEY, []); }
+function saveLog(log){ setJson(LOG_KEY, log.slice(-180)); }
 function stamp(){ return new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' }); }
+
+function ensureFieldLog(){
+  let terminal = el('#field-log-terminal');
+  if(terminal) return terminal;
+
+  terminal = document.createElement('div');
+  terminal.id = 'field-log-terminal';
+  terminal.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:2147483647;background:#030303;color:#d8d2c6;border-top:1px solid rgba(194,161,90,.55);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;box-shadow:0 -16px 50px rgba(0,0,0,.65);';
+  terminal.innerHTML = `
+    <div id="field-log-bar" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.62rem 1rem;cursor:pointer;user-select:none;">
+      <div><span style="color:#c2a15a;letter-spacing:.08em;">FIELD LOG</span> <span id="field-log-latest" style="opacity:.72;">— Online.</span></div>
+      <div id="field-log-toggle" style="opacity:.72;">expand</div>
+    </div>
+    <div id="field-log-body" style="display:none;max-height:42vh;overflow:auto;padding:0 1rem 1rem;"></div>
+  `;
+  document.body.appendChild(terminal);
+  document.body.style.paddingBottom = '3.25rem';
+
+  terminal.querySelector('#field-log-bar').onclick = () => {
+    terminal.classList.toggle('open');
+    const open = terminal.classList.contains('open');
+    terminal.querySelector('#field-log-body').style.display = open ? 'block' : 'none';
+    terminal.querySelector('#field-log-toggle').textContent = open ? 'collapse' : 'expand';
+  };
+  return terminal;
+}
 
 function writeLog(message,type='field'){
   const log = getLog();
@@ -24,50 +50,16 @@ function writeLog(message,type='field'){
 }
 
 function renderLog(){
-  let terminal = el('#field-log');
-  if(!terminal){
-    terminal = document.createElement('div');
-    terminal.id = 'field-log';
-    terminal.style.position = 'fixed';
-    terminal.style.left = '0';
-    terminal.style.right = '0';
-    terminal.style.bottom = '0';
-    terminal.style.zIndex = '9999';
-    terminal.style.background = 'rgba(0,0,0,0.94)';
-    terminal.style.color = '#d8d2c6';
-    terminal.style.borderTop = '1px solid rgba(194,161,90,0.38)';
-    terminal.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-    terminal.style.boxShadow = '0 -12px 40px rgba(0,0,0,0.45)';
-
-    terminal.innerHTML = `
-      <div id="field-log-bar" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.55rem 1rem;cursor:pointer;">
-        <div><span style="color:#c2a15a;">FIELD LOG</span> <span id="field-log-latest" style="opacity:.72;"></span></div>
-        <div id="field-log-toggle" style="opacity:.72;">expand</div>
-      </div>
-      <div id="field-log-body" style="display:none;max-height:38vh;overflow:auto;padding:0 1rem 1rem;"></div>
-    `;
-
-    document.body.appendChild(terminal);
-    document.body.style.paddingBottom = '3rem';
-
-    terminal.querySelector('#field-log-bar').onclick = () => {
-      terminal.classList.toggle('open');
-      const open = terminal.classList.contains('open');
-      terminal.querySelector('#field-log-body').style.display = open ? 'block' : 'none';
-      terminal.querySelector('#field-log-toggle').textContent = open ? 'collapse' : 'expand';
-    };
-  }
-
+  const terminal = ensureFieldLog();
   const log = getLog();
   const latest = log[log.length-1];
   const latestNode = terminal.querySelector('#field-log-latest');
   const body = terminal.querySelector('#field-log-body');
-
-  latestNode.textContent = latest ? `— ${latest.message}` : '— Awaiting signal.';
+  latestNode.textContent = latest ? `— ${latest.message}` : '— Online.';
   body.innerHTML = log.slice().reverse().map(entry => {
-    const color = entry.type === 'unlock' ? '#6a8f8a' : entry.type === 'accept' ? '#c2a15a' : entry.type === 'segment' ? '#d8d2c6' : '#9c958b';
-    return `<div style="padding:.28rem 0;border-bottom:1px solid rgba(255,255,255,0.045);"><span style="opacity:.55;">${entry.time}</span> <span style="color:${color};">${entry.message}</span></div>`;
-  }).join('');
+    const color = entry.type === 'unlock' ? '#6a8f8a' : entry.type === 'accept' ? '#c2a15a' : entry.type === 'segment' ? '#e7e1d6' : '#9c958b';
+    return `<div style="padding:.32rem 0;border-bottom:1px solid rgba(255,255,255,.05);"><span style="opacity:.55;">${entry.time}</span> <span style="color:${color};">${entry.message}</span></div>`;
+  }).join('') || '<div style="opacity:.65;padding:.4rem 0;">No events recorded yet.</div>';
 }
 
 function snapshotVisible(){
@@ -78,8 +70,6 @@ function snapshotVisible(){
   });
   return visible;
 }
-
-let previousVisible = new Set();
 let booted = false;
 
 function meetsRequirements(module,state){
@@ -98,201 +88,101 @@ function meetsRequirements(module,state){
 function renderIndex(state){
   let idx = el('#indexical');
   if(!idx){
-    idx = document.createElement('div');
-    idx.id = 'indexical';
-    idx.style.padding = '0.5rem 1rem';
-    idx.style.fontSize = '0.8rem';
-    idx.style.opacity = '0.72';
-    idx.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+    idx = document.createElement('div'); idx.id='indexical';
+    idx.style.cssText='padding:.5rem 1rem;font-size:.8rem;opacity:.72;border-bottom:1px solid rgba(255,255,255,.08);';
     document.body.prepend(idx);
   }
-  idx.innerHTML = `<strong>Node:</strong> Meta-Landing | <strong>Vector:</strong> ${state.vector || 'zephyr'} | <strong>Aura:</strong> ${state.aura || 'Unformed'} | <strong>Complexity:</strong> ${state.complexity || 0}`;
+  idx.innerHTML = `<strong>Node:</strong> Meta-Landing | <strong>Vector:</strong> ${state.vector||'zephyr'} | <strong>Aura:</strong> ${state.aura||'Unformed'} | <strong>Complexity:</strong> ${state.complexity||0}`;
 }
 
 function renderResources(state){
   let panel = el('#resource-panel');
   if(!panel){
-    panel = document.createElement('div');
-    panel.id = 'resource-panel';
-    panel.style.margin = '0 1rem 1rem';
-    panel.style.padding = '0.75rem 1rem';
-    panel.style.fontSize = '0.85rem';
-    panel.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+    panel=document.createElement('div'); panel.id='resource-panel';
+    panel.style.cssText='margin:0 1rem 1rem;padding:.75rem 1rem;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,.08);';
     document.body.insertBefore(panel, document.body.children[1] || null);
   }
-  const r = state.resources || {};
-  panel.innerHTML = `<strong>Field Resources</strong><br>Attention: ${r.attention||0} | Orientation: ${r.orientation||0} | Signal: ${r.signal||0}<br>Resonance: ${r.resonance||0} | Witness: ${r.witness||0} | Trace: ${r.trace||0}`;
+  const r=state.resources||{};
+  panel.innerHTML=`<strong>Field Resources</strong><br>Attention: ${r.attention||0} | Orientation: ${r.orientation||0} | Signal: ${r.signal||0}<br>Resonance: ${r.resonance||0} | Witness: ${r.witness||0} | Trace: ${r.trace||0}`;
 }
 
 function renderFieldState(state){
-  setText('state-complexity', state.complexity || 0);
-  setText('state-aura', state.aura || 'Unformed');
-  setText('state-vector', state.vector || 'zephyr');
-  setText('state-entanglement', state.entanglement || 0);
-  setText('state-bits', state.bits || 0);
-  setText('state-coherence', state.coherence || 0);
-  setText('state-orientation', state.orientation || 0);
+  setText('state-complexity', state.complexity||0); setText('state-aura', state.aura||'Unformed'); setText('state-vector', state.vector||'zephyr'); setText('state-entanglement', state.entanglement||0); setText('state-bits', state.bits||0); setText('state-coherence', state.coherence||0); setText('state-orientation', state.orientation||0);
 }
 
 function dwellText(module){
-  const required = (module.acceptRequires && module.acceptRequires.dwellSeconds) || module.dwellSeconds || 0;
+  const required=(module.acceptRequires&&module.acceptRequires.dwellSeconds)||module.dwellSeconds||0;
   if(!required) return '';
-  const elapsed = S.dwellElapsed ? S.dwellElapsed(module.id) : 0;
-  return elapsed >= required ? `Field stabilized. (${elapsed}s / ${required}s)` : `Field stabilizing… (${elapsed}s / ${required}s)`;
+  const elapsed=S.dwellElapsed?S.dwellElapsed(module.id):0;
+  return elapsed>=required?`Field stabilized. (${elapsed}s / ${required}s)`:`Field stabilizing… (${elapsed}s / ${required}s)`;
 }
 
 function renderSegments(module,node){
-  if(!module.segments || !module.segments.length) return;
+  if(!module.segments||!module.segments.length) return;
   S.enter(module.id);
+  let wrap=node.querySelector('.segments');
+  if(!wrap){ wrap=document.createElement('div'); wrap.className='segments'; wrap.style.marginTop='1rem'; node.appendChild(wrap); }
+  const state=S.get(); const completed=Object.keys((state.segments&&state.segments[module.id])||{}).length; const total=module.segments.length;
+  wrap.innerHTML='';
+  const meta=document.createElement('div'); meta.style.cssText='font-size:.78rem;opacity:.76;margin-bottom:.75rem;'; meta.textContent=`Progress: ${completed} / ${total}${dwellText(module)?' · '+dwellText(module):''}`; wrap.appendChild(meta);
+  module.segments.forEach(seg=>{
+    const done=!!(state.segments&&state.segments[module.id]&&state.segments[module.id][seg.id]);
+    const box=document.createElement('div'); box.style.cssText=`border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:.8rem;margin-bottom:.65rem;background:${done?'rgba(106,143,138,.07)':'rgba(255,255,255,.025)'};`;
+    const title=document.createElement('div'); title.textContent=seg.title; title.style.cssText='font-weight:700;margin-bottom:.35rem;';
+    const text=document.createElement('div'); text.textContent=seg.text; text.style.cssText='line-height:1.55;margin-bottom:.65rem;';
+    const btn=document.createElement('button'); btn.className='btn'; btn.textContent=done?'Acknowledged':'Acknowledge'; btn.disabled=done;
+    btn.onclick=()=>{ S.completeSegment(module.id,seg.id); writeLog(`${module.title}: ${seg.title} acknowledged.`,'segment'); render(); };
+    box.appendChild(title); box.appendChild(text); box.appendChild(btn); wrap.appendChild(box);
+  });
+}
 
-  let wrap = node.querySelector('.segments');
-  if(!wrap){
-    wrap = document.createElement('div');
-    wrap.className = 'segments';
-    wrap.style.marginTop = '1rem';
-    node.appendChild(wrap);
-  }
-
-  const state = S.get();
-  const completed = Object.keys((state.segments && state.segments[module.id]) || {}).length;
-  const total = module.segments.length;
-
-  wrap.innerHTML = '';
-
-  const meta = document.createElement('div');
-  meta.style.fontSize = '0.78rem';
-  meta.style.opacity = '0.76';
-  meta.style.marginBottom = '0.75rem';
-  meta.textContent = `Progress: ${completed} / ${total}${dwellText(module) ? ' · ' + dwellText(module) : ''}`;
-  wrap.appendChild(meta);
-
-  module.segments.forEach(seg => {
-    const done = !!(state.segments && state.segments[module.id] && state.segments[module.id][seg.id]);
-
-    const box = document.createElement('div');
-    box.style.border = '1px solid rgba(255,255,255,0.08)';
-    box.style.borderRadius = '10px';
-    box.style.padding = '0.8rem';
-    box.style.marginBottom = '0.65rem';
-    box.style.background = done ? 'rgba(106,143,138,0.07)' : 'rgba(255,255,255,0.025)';
-
-    const title = document.createElement('div');
-    title.textContent = seg.title;
-    title.style.fontWeight = '700';
-    title.style.marginBottom = '0.35rem';
-
-    const text = document.createElement('div');
-    text.textContent = seg.text;
-    text.style.lineHeight = '1.55';
-    text.style.marginBottom = '0.65rem';
-
-    const btn = document.createElement('button');
-    btn.className = 'btn';
-    btn.textContent = done ? 'Acknowledged' : 'Acknowledge';
-    btn.disabled = done;
-    btn.onclick = () => {
-      S.completeSegment(module.id, seg.id);
-      writeLog(`${module.title}: ${seg.title} acknowledged.`, 'segment');
-      render();
+function ensureCollapseControl(module,node,accepted){
+  let control=node.querySelector('.module-collapse-control');
+  if(!accepted){ if(control) control.remove(); node.classList.remove('module-collapsed'); return; }
+  if(!control){
+    control=document.createElement('button'); control.className='module-collapse-control btn'; control.style.marginLeft='.5rem';
+    const h=node.querySelector('h2,h3'); if(h) h.insertAdjacentElement('afterend',control); else node.prepend(control);
+    control.onclick=()=>{
+      const collapsed=getJson(COLLAPSE_KEY,{}); collapsed[module.id]=!collapsed[module.id]; setJson(COLLAPSE_KEY,collapsed); render();
     };
-
-    box.appendChild(title);
-    box.appendChild(text);
-    box.appendChild(btn);
-    wrap.appendChild(box);
+  }
+  const collapsed=getJson(COLLAPSE_KEY,{}); const isCollapsed=collapsed[module.id]!==false;
+  control.textContent=isCollapsed?'Expand accepted chamber':'Collapse accepted chamber';
+  node.classList.toggle('module-collapsed',isCollapsed);
+  Array.from(node.children).forEach(child=>{
+    if(child.classList.contains('badge')||child.tagName==='H2'||child.tagName==='H3'||child.classList.contains('module-collapse-control')) return;
+    child.style.display=isCollapsed?'none':'';
   });
 }
 
 function renderModules(state){
-  const before = snapshotVisible();
-
-  M.forEach(module => {
-    const node = el(`[data-module="${module.id}"]`);
-    if(!node) return;
-
-    const eligible = meetsRequirements(module,state);
-    const accepted = state.accepted.includes(module.id);
-
+  const before=snapshotVisible();
+  M.forEach(module=>{
+    const node=el(`[data-module="${module.id}"]`); if(!node) return;
+    const eligible=meetsRequirements(module,state); const accepted=state.accepted.includes(module.id);
     node.classList.remove('accepted');
-
-    if(accepted){
-      node.classList.remove('hidden');
-      node.classList.add('revealed','accepted');
-    } else if(eligible){
-      node.classList.remove('hidden');
-      node.classList.add('revealed');
-    } else if(module.initialStatus === 'deferred'){
-      node.classList.remove('hidden');
-      node.classList.add('deferred');
-    } else {
-      node.classList.add('hidden');
-    }
-
-    if(!node.classList.contains('hidden')){
-      renderSegments(module,node);
-    }
-
-    const btn = node.querySelector(`[data-accept="${module.id}"]`);
-    if(btn){
-      btn.disabled = accepted || !S.canAccept(module.id);
-      btn.textContent = accepted ? 'Accepted' : (btn.dataset.originalText || btn.textContent);
-    }
+    if(accepted){ node.classList.remove('hidden'); node.classList.add('revealed','accepted'); }
+    else if(eligible){ node.classList.remove('hidden'); node.classList.add('revealed'); }
+    else if(module.initialStatus==='deferred'){ node.classList.remove('hidden'); node.classList.add('deferred'); }
+    else { node.classList.add('hidden'); }
+    if(!node.classList.contains('hidden')) renderSegments(module,node);
+    const btn=node.querySelector(`[data-accept="${module.id}"]`);
+    if(btn){ btn.disabled=accepted||!S.canAccept(module.id); btn.textContent=accepted?'Accepted':(btn.dataset.originalText||btn.textContent); }
+    ensureCollapseControl(module,node,accepted);
   });
-
-  const after = snapshotVisible();
-  after.forEach(id => {
-    if(!before.has(id) && booted){
-      const module = M.find(m => m.id === id);
-      writeLog(`${module ? module.title : id} unlocked.`, 'unlock');
-    }
-  });
-  previousVisible = after;
+  const after=snapshotVisible();
+  after.forEach(id=>{ if(!before.has(id)&&booted){ const m=M.find(x=>x.id===id); writeLog(`${m?m.title:id} unlocked.`,'unlock'); }});
 }
 
 function bindButtons(){
-  document.querySelectorAll('[data-accept]').forEach(button => {
-    if(!button.dataset.originalText) button.dataset.originalText = button.textContent;
-    button.onclick = () => {
-      const id = button.dataset.accept;
-      const module = M.find(m => m.id === id);
-      const before = S.get().accepted.includes(id);
-      const ok = S.accept(id);
-      const after = S.get().accepted.includes(id);
-      if(after && !before){
-        writeLog(`${module ? module.title : id} accepted.`, 'accept');
-      } else if(!ok && !after && !before){
-        writeLog(`${module ? module.title : id} is not ready yet.`, 'field');
-      }
-      render();
-    };
+  document.querySelectorAll('[data-accept]').forEach(button=>{
+    if(!button.dataset.originalText) button.dataset.originalText=button.textContent;
+    button.onclick=()=>{ const id=button.dataset.accept; const module=M.find(m=>m.id===id); const before=S.get().accepted.includes(id); const ok=S.accept(id); const after=S.get().accepted.includes(id); if(after&&!before) writeLog(`${module?module.title:id} accepted.`,'accept'); else if(!ok&&!after&&!before) writeLog(`${module?module.title:id} is not ready yet.`,'field'); render(); };
   });
-
-  const reset = document.getElementById('reset-state');
-  if(reset){
-    reset.onclick = () => {
-      if(S.reset) S.reset();
-      localStorage.removeItem('neodoxent_state');
-      localStorage.removeItem(LOG_KEY);
-      location.reload();
-    };
-  }
+  const reset=document.getElementById('reset-state'); if(reset){ reset.onclick=()=>{ if(S.reset) S.reset(); localStorage.removeItem('neodoxent_state'); localStorage.removeItem(LOG_KEY); localStorage.removeItem(COLLAPSE_KEY); location.reload(); }; }
 }
 
-function render(){
-  const state = S.get();
-  renderLog();
-  renderIndex(state);
-  renderResources(state);
-  renderFieldState(state);
-  renderModules(state);
-}
+function render(){ const state=S.get(); renderLog(); renderIndex(state); renderResources(state); renderFieldState(state); renderModules(state); }
 
-document.addEventListener('DOMContentLoaded', () => {
-  bindButtons();
-  render();
-  if(getLog().length === 0) writeLog('Meta-Landing initialized.', 'field');
-  previousVisible = snapshotVisible();
-  booted = true;
-  setInterval(render,1000);
-});
+document.addEventListener('DOMContentLoaded',()=>{ ensureFieldLog(); bindButtons(); if(getLog().length===0) writeLog('Meta-Landing initialized.','field'); render(); booted=true; setInterval(render,1000); });
 })();

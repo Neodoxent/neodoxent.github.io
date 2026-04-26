@@ -16,40 +16,54 @@
 
   window.NEODOXENT_MANIFEST={seed:manifestSeed};
 
-  function replaceIndexical(idx,seed){
-    if(!idx)return;
-    const html=idx.innerHTML;
-    const next=html
+  function currentSeed(){
+    const S=window.NEODOXENT_STATE;
+    if(!S||!S.get)return null;
+    return manifestSeed(S.get());
+  }
+
+  function rewriteIndexicalHtml(html){
+    const seed=currentSeed();
+    if(seed===null||typeof html!=='string')return html;
+    return html
       .replace(/<strong>Manifest Seed:<\/strong>\s*[^|]+/,'<strong>Manifest Seed:</strong> '+seed+' ')
       .replace(/<strong>Manifest:<\/strong>\s*[^|]+/,'<strong>Manifest Seed:</strong> '+seed+' ');
-    if(next!==html)idx.innerHTML=next;
+  }
+
+  function patchInnerHTMLSetter(){
+    const proto=Element.prototype;
+    const desc=Object.getOwnPropertyDescriptor(proto,'innerHTML');
+    if(!desc||!desc.set||proto.__neodoxentManifestPatched)return;
+    Object.defineProperty(proto,'innerHTML',{
+      configurable:true,
+      enumerable:desc.enumerable,
+      get:desc.get,
+      set:function(value){
+        if(this&&this.id==='indexical'){
+          return desc.set.call(this,rewriteIndexicalHtml(value));
+        }
+        return desc.set.call(this,value);
+      }
+    });
+    proto.__neodoxentManifestPatched=true;
   }
 
   function apply(){
+    const idx=document.querySelector('#indexical');
+    if(idx){
+      const next=rewriteIndexicalHtml(idx.innerHTML);
+      if(next!==idx.innerHTML)idx.innerHTML=next;
+    }
     const S=window.NEODOXENT_STATE;
-    if(!S||!S.get)return;
-    const st=S.get();
-    const seed=manifestSeed(st);
-    replaceIndexical(document.querySelector('#indexical'),seed);
+    const st=S&&S.get?S.get():null;
     const pill=document.querySelector('#field-reading-pill');
-    if(pill&&st.field){
+    if(pill&&st&&st.field){
+      const seed=manifestSeed(st);
       pill.title='Field Reading '+(st.field.reading||0)+'/64 · Manifest Seed '+seed+' · Signature '+(st.field.signature||0);
     }
   }
 
-  function observeIndexical(){
-    const idx=document.querySelector('#indexical');
-    if(!idx||idx.dataset.manifestObserved)return;
-    idx.dataset.manifestObserved='1';
-    new MutationObserver(()=>apply()).observe(idx,{childList:true,subtree:true,characterData:true});
-  }
-
-  function boot(){
-    apply();
-    observeIndexical();
-    setInterval(()=>{apply();observeIndexical()},250);
-  }
-
-  document.addEventListener('DOMContentLoaded',()=>setTimeout(boot,150));
+  patchInnerHTMLSetter();
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(apply,50));
   window.addEventListener('neodoxent:tick',apply);
 })();

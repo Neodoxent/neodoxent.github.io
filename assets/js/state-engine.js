@@ -1,21 +1,15 @@
 /* ==================================================
-   state-engine.js — Neodoxent State Engine v1.4
+   state-engine.js — Neodoxent State Engine v1.4.1
    --------------------------------------------------
-   Owns persistent local state for the Meta-Landing.
-   Responsibilities:
-   - resources, qBits, strata, module acceptance
-   - segment completion and segment grants
-   - dwell-time and resource-gated acceptance
-   - derived values: complexity, aura, resonance, manifest factor
+   Stable self-contained state engine.
    ================================================== */
 
 window.NEODOXENT_STATE = (function(){
   "use strict";
 
   const STORAGE_KEY = "neodoxent_state";
-
   const DEFAULT_STATE = {
-    version: "1.4",
+    version: "1.4.1",
     time: 0,
     bits: 0,
     qbits: { symbolic:0, cognitive:0, poetic:0, architectural:0, cybernetic:0, regal:0, cathedral:0 },
@@ -41,7 +35,6 @@ window.NEODOXENT_STATE = (function(){
 
   function clone(value){ return JSON.parse(JSON.stringify(value)); }
   function num(value, fallback=0){ return typeof value === "number" && Number.isFinite(value) ? value : fallback; }
-
   function mergeMap(base, incoming){
     const out = { ...base };
     Object.keys(base).forEach(key => { out[key] = num(incoming && incoming[key], base[key]); });
@@ -51,7 +44,6 @@ window.NEODOXENT_STATE = (function(){
   function ensureShape(raw){
     raw = raw && typeof raw === "object" ? raw : {};
     const next = clone(DEFAULT_STATE);
-
     next.time = num(raw.time);
     next.bits = num(raw.bits);
     next.qbits = mergeMap(DEFAULT_STATE.qbits, raw.qbits);
@@ -70,7 +62,6 @@ window.NEODOXENT_STATE = (function(){
     next.segments = raw.segments && typeof raw.segments === "object" ? raw.segments : {};
     next.enteredAt = raw.enteredAt && typeof raw.enteredAt === "object" ? raw.enteredAt : {};
     next.lastAccepted = raw.lastAccepted || null;
-
     return next;
   }
 
@@ -80,10 +71,27 @@ window.NEODOXENT_STATE = (function(){
   }
 
   function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-
   function modules(){ return window.NEODOXENT_MODULES || []; }
   function moduleById(id){ return modules().find(module => module.id === id) || null; }
   function segmentById(module, segmentId){ return (module && module.segments || []).find(segment => segment.id === segmentId) || null; }
+
+  function mapMet(map, target){
+    if(!map) return true;
+    return Object.entries(map).every(([key,value]) => num(target && target[key]) >= num(value));
+  }
+
+  function moduleRequirementsMet(module){
+    const req = module && module.requires || {};
+    if(req.accepted && !req.accepted.every(id => state.accepted.includes(id))) return false;
+    if(!mapMet(req.strata, state.strata)) return false;
+    if(!mapMet(req.qbits, state.qbits)) return false;
+    if(!mapMet(req.resources, state.resources)) return false;
+    if(req.coherence && state.coherence < req.coherence) return false;
+    if(req.complexity && state.complexity < req.complexity) return false;
+    if(req.entanglement && state.entanglement < req.entanglement) return false;
+    if(req.orientation && state.orientation < req.orientation) return false;
+    return true;
+  }
 
   function addMap(target, additions){
     if(!additions) return;
@@ -123,16 +131,13 @@ window.NEODOXENT_STATE = (function(){
     return dwellElapsed(moduleId) >= required;
   }
 
-  function resourcesMet(requirements){
-    if(!requirements) return true;
-    return Object.entries(requirements).every(([key,value]) => num(state.resources[key]) >= num(value));
-  }
+  function resourcesMet(requirements){ return mapMet(requirements, state.resources); }
 
   function canAccept(moduleId){
     const module = moduleById(moduleId);
     if(!module || state.accepted.includes(moduleId)) return false;
     const acceptRequires = module.acceptRequires || {};
-    return segmentProgress(moduleId) >= 1 && dwellMet(moduleId) && resourcesMet(acceptRequires.resources);
+    return moduleRequirementsMet(module) && segmentProgress(moduleId) >= 1 && dwellMet(moduleId) && resourcesMet(acceptRequires.resources);
   }
 
   function enter(moduleId){
@@ -145,11 +150,9 @@ window.NEODOXENT_STATE = (function(){
   function completeSegment(moduleId, segmentId){
     const module = moduleById(moduleId);
     const segment = segmentById(module, segmentId);
-    if(!module || !segment) return;
-
+    if(!module || !segment || !moduleRequirementsMet(module)) return;
     state.segments[moduleId] = state.segments[moduleId] || {};
     if(state.segments[moduleId][segmentId]) return;
-
     state.segments[moduleId][segmentId] = true;
     applyGrants(segment.grants);
     update();
@@ -158,7 +161,6 @@ window.NEODOXENT_STATE = (function(){
   function accept(moduleId){
     const module = moduleById(moduleId);
     if(!module || !canAccept(moduleId)) return false;
-
     applyGrants(module.grants);
     state.accepted.push(moduleId);
     state.acceptedAt[moduleId] = Date.now();
@@ -184,14 +186,14 @@ window.NEODOXENT_STATE = (function(){
     const qSum = Object.values(state.qbits).reduce((sum,value)=>sum+num(value),0);
     const sSum = Object.values(state.strata).reduce((sum,value)=>sum+num(value),0);
     const rSum = Object.values(state.resources).reduce((sum,value)=>sum+num(value),0);
-    return state.bits + qSum + sSum + rSum + state.entanglement*2 + state.coherence*3 + state.orientation*2 + state.manifestFactor;
+    return state.bits + qSum + sSum + rSum + state.entanglement*2 + state.coherence*2 + state.orientation*2 + state.manifestFactor;
   }
 
   function computeAura(){
-    if(state.complexity >= 70 && state.manifestFactor >= 14) return "Cathedral";
-    if(state.complexity >= 55 && state.resonance >= 10) return "Architectonic";
-    if(state.complexity >= 38) return "Liminal";
-    if(state.complexity >= 20) return "Structured";
+    if(state.complexity >= 95 && state.manifestFactor >= 18 && state.coherence >= 7) return "Cathedral";
+    if(state.complexity >= 72 && state.resonance >= 10 && state.coherence >= 5) return "Architectonic";
+    if(state.complexity >= 52 && state.manifestFactor >= 12) return "Liminal";
+    if(state.complexity >= 30 && state.resources.attention >= 2) return "Structured";
     if(state.orientation > 0 || state.resources.orientation > 0) return "Nascent";
     return "Unformed";
   }
@@ -205,10 +207,7 @@ window.NEODOXENT_STATE = (function(){
     save();
   }
 
-  function reset(){
-    state = clone(DEFAULT_STATE);
-    save();
-  }
+  function reset(){ state = clone(DEFAULT_STATE); save(); }
 
   function start(){
     if(timerStarted) return;
@@ -224,5 +223,5 @@ window.NEODOXENT_STATE = (function(){
   update();
   start();
 
-  return { get:()=>state, accept, enter, completeSegment, segmentProgress, dwellElapsed, dwellMet, canAccept, reset, update };
+  return { get:()=>state, accept, enter, completeSegment, segmentProgress, dwellElapsed, dwellMet, canAccept, reset, update, moduleRequirementsMet };
 })();

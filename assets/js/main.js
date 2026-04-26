@@ -3,6 +3,7 @@
 
 const M = window.NEODOXENT_MODULES || [];
 const S = window.NEODOXENT_STATE;
+const LOG_KEY = 'neodoxent_field_log';
 
 if(!S){
   console.error('NEODOXENT_STATE missing.');
@@ -11,7 +12,75 @@ if(!S){
 
 function el(q){ return document.querySelector(q); }
 function setText(id,value){ const node=document.getElementById(id); if(node) node.textContent=String(value); }
-function moduleDef(id){ return M.find(m=>m.id===id); }
+function getLog(){ try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; } catch(e){ return []; } }
+function saveLog(log){ localStorage.setItem(LOG_KEY, JSON.stringify(log.slice(-160))); }
+function stamp(){ return new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' }); }
+
+function writeLog(message,type='field'){
+  const log = getLog();
+  log.push({ time: stamp(), message, type });
+  saveLog(log);
+  renderLog();
+}
+
+function renderLog(){
+  let terminal = el('#field-log');
+  if(!terminal){
+    terminal = document.createElement('div');
+    terminal.id = 'field-log';
+    terminal.style.position = 'fixed';
+    terminal.style.left = '0';
+    terminal.style.right = '0';
+    terminal.style.bottom = '0';
+    terminal.style.zIndex = '9999';
+    terminal.style.background = 'rgba(0,0,0,0.94)';
+    terminal.style.color = '#d8d2c6';
+    terminal.style.borderTop = '1px solid rgba(194,161,90,0.38)';
+    terminal.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    terminal.style.boxShadow = '0 -12px 40px rgba(0,0,0,0.45)';
+
+    terminal.innerHTML = `
+      <div id="field-log-bar" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.55rem 1rem;cursor:pointer;">
+        <div><span style="color:#c2a15a;">FIELD LOG</span> <span id="field-log-latest" style="opacity:.72;"></span></div>
+        <div id="field-log-toggle" style="opacity:.72;">expand</div>
+      </div>
+      <div id="field-log-body" style="display:none;max-height:38vh;overflow:auto;padding:0 1rem 1rem;"></div>
+    `;
+
+    document.body.appendChild(terminal);
+    document.body.style.paddingBottom = '3rem';
+
+    terminal.querySelector('#field-log-bar').onclick = () => {
+      terminal.classList.toggle('open');
+      const open = terminal.classList.contains('open');
+      terminal.querySelector('#field-log-body').style.display = open ? 'block' : 'none';
+      terminal.querySelector('#field-log-toggle').textContent = open ? 'collapse' : 'expand';
+    };
+  }
+
+  const log = getLog();
+  const latest = log[log.length-1];
+  const latestNode = terminal.querySelector('#field-log-latest');
+  const body = terminal.querySelector('#field-log-body');
+
+  latestNode.textContent = latest ? `— ${latest.message}` : '— Awaiting signal.';
+  body.innerHTML = log.slice().reverse().map(entry => {
+    const color = entry.type === 'unlock' ? '#6a8f8a' : entry.type === 'accept' ? '#c2a15a' : entry.type === 'segment' ? '#d8d2c6' : '#9c958b';
+    return `<div style="padding:.28rem 0;border-bottom:1px solid rgba(255,255,255,0.045);"><span style="opacity:.55;">${entry.time}</span> <span style="color:${color};">${entry.message}</span></div>`;
+  }).join('');
+}
+
+function snapshotVisible(){
+  const visible = new Set();
+  M.forEach(module => {
+    const node = el(`[data-module="${module.id}"]`);
+    if(node && !node.classList.contains('hidden')) visible.add(module.id);
+  });
+  return visible;
+}
+
+let previousVisible = new Set();
+let booted = false;
 
 function meetsRequirements(module,state){
   const req = module.requires || {};
@@ -123,6 +192,7 @@ function renderSegments(module,node){
     btn.disabled = done;
     btn.onclick = () => {
       S.completeSegment(module.id, seg.id);
+      writeLog(`${module.title}: ${seg.title} acknowledged.`, 'segment');
       render();
     };
 
@@ -134,6 +204,8 @@ function renderSegments(module,node){
 }
 
 function renderModules(state){
+  const before = snapshotVisible();
+
   M.forEach(module => {
     const node = el(`[data-module="${module.id}"]`);
     if(!node) return;
@@ -166,6 +238,15 @@ function renderModules(state){
       btn.textContent = accepted ? 'Accepted' : (btn.dataset.originalText || btn.textContent);
     }
   });
+
+  const after = snapshotVisible();
+  after.forEach(id => {
+    if(!before.has(id) && booted){
+      const module = M.find(m => m.id === id);
+      writeLog(`${module ? module.title : id} unlocked.`, 'unlock');
+    }
+  });
+  previousVisible = after;
 }
 
 function bindButtons(){
@@ -173,11 +254,14 @@ function bindButtons(){
     if(!button.dataset.originalText) button.dataset.originalText = button.textContent;
     button.onclick = () => {
       const id = button.dataset.accept;
+      const module = M.find(m => m.id === id);
       const before = S.get().accepted.includes(id);
       const ok = S.accept(id);
       const after = S.get().accepted.includes(id);
-      if(!ok && !after && !before){
-        console.info(`Module ${id} is not ready yet.`);
+      if(after && !before){
+        writeLog(`${module ? module.title : id} accepted.`, 'accept');
+      } else if(!ok && !after && !before){
+        writeLog(`${module ? module.title : id} is not ready yet.`, 'field');
       }
       render();
     };
@@ -188,6 +272,7 @@ function bindButtons(){
     reset.onclick = () => {
       if(S.reset) S.reset();
       localStorage.removeItem('neodoxent_state');
+      localStorage.removeItem(LOG_KEY);
       location.reload();
     };
   }
@@ -195,6 +280,7 @@ function bindButtons(){
 
 function render(){
   const state = S.get();
+  renderLog();
   renderIndex(state);
   renderResources(state);
   renderFieldState(state);
@@ -204,6 +290,9 @@ function render(){
 document.addEventListener('DOMContentLoaded', () => {
   bindButtons();
   render();
+  if(getLog().length === 0) writeLog('Meta-Landing initialized.', 'field');
+  previousVisible = snapshotVisible();
+  booted = true;
   setInterval(render,1000);
 });
 })();

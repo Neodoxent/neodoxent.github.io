@@ -50,6 +50,42 @@ window.NEODOXENT_MODULES = [
     title: "Aperture Calibration",
     initialStatus: "hidden",
     requires: { accepted: ["zephyr"], strata: { stabilization: 1 }, resources: { attention: 2, orientation: 2 } },
+    acceptRequires: {
+      dwellSeconds: 180,
+      resources: { attention: 4, orientation: 3, signal: 3, resonance: 2, witness: 1 }
+    },
+    segments: [
+      {
+        id: "observation",
+        title: "Observation",
+        text: "Aperture begins with observation: not interpretation, not decision, not symbolic seizure. The reader learns to let the field appear before naming it.",
+        grants: { resources: { attention: 1, signal: 1 }, qbits: { cognitive: 1 }, strata: { orientation: 1 } }
+      },
+      {
+        id: "distinction",
+        title: "Distinction",
+        text: "To see is to distinguish: signal from ornament, threshold from decoration, chamber from page, symbol from mere image.",
+        grants: { coherence: 1, resources: { signal: 1, resonance: 1 }, qbits: { symbolic: 1 } }
+      },
+      {
+        id: "stabilization",
+        title: "Stabilization",
+        text: "Aperture does not widen infinitely. It stabilizes the act of looking so that complexity does not become glare.",
+        grants: { resources: { attention: 1, orientation: 1 }, strata: { stabilization: 1 }, qbits: { architectural: 1 } }
+      },
+      {
+        id: "calibration",
+        title: "Calibration",
+        text: "Calibration aligns perception with consequence. The reader proceeds when attention, signal, and coherence begin to move together.",
+        grants: { coherence: 1, resources: { signal: 1, resonance: 1 }, qbits: { symbolic: 1, cognitive: 1 } }
+      },
+      {
+        id: "witness",
+        title: "Witness",
+        text: "The Aperture is accepted only when the act of seeing has become stable enough to be remembered. Witness turns perception into trace.",
+        grants: { resources: { witness: 1, trace: 1 }, strata: { orientation: 1 } }
+      }
+    ],
     grants: {
       bits: 2,
       orientation: 1,
@@ -64,7 +100,7 @@ window.NEODOXENT_MODULES = [
     id: "cards",
     title: "Card Interface",
     initialStatus: "hidden",
-    requires: { accepted: ["aperture"], strata: { orientation: 2, stabilization: 1 }, resources: { attention: 2, signal: 1 }, coherence: 1 },
+    requires: { accepted: ["aperture"], strata: { orientation: 3, stabilization: 2 }, resources: { attention: 4, signal: 3 }, coherence: 2 },
     grants: {
       bits: 2,
       coherence: 1,
@@ -78,7 +114,7 @@ window.NEODOXENT_MODULES = [
     id: "glyphs",
     title: "Glyph Interface",
     initialStatus: "hidden",
-    requires: { accepted: ["cards"], strata: { semiotic: 1 }, qbits: { symbolic: 2 } },
+    requires: { accepted: ["cards"], strata: { semiotic: 1 }, qbits: { symbolic: 3 } },
     grants: {
       bits: 2,
       strata: { semiotic: 1 },
